@@ -1,0 +1,37 @@
+{
+  "siteUrl": "",
+  "links": {
+    "instagram": "",
+    "discord": "",
+    "email": "mailto:csdug@brown.edu",
+    "courseCatalog": "https://cs.brown.edu/courses/",
+    "concentrationRequirements": "https://cs.brown.edu/degrees/undergrad/concentrating-in-cs/concentration-requirements-2024/",
+    "concentrationHandbook": "https://cs.brown.edu/degrees/undergrad/concentrating-in-cs/concentration-handbook/",
+    "advising": "https://cs.brown.edu/degrees/undergrad/concentrating-in-cs/advisors/",
+    "studyAbroad": "https://cs.brown.edu/degrees/undergrad/concentrating-in-cs/study-abroad/",
+    "mastersOptions": "https://cs.brown.edu/degrees/masters/our-fifth-year-and-alternative-masters-options/",
+    "careerCourseMap": "https://cs.brown.edu/degrees/career-planning/",
+    "techRecruiting": "https://career-center.brown.edu/pathways-outcomes/technology-and-tech-ventures",
+    "csGigs": "https://cs.brown.edu/about/contacts/",
+    "careerEvents": "https://career-center.brown.edu/connections-opportunities/events",
+    "resumeInterviews": "https://career-center.brown.edu/planning-resources/job-search-resources",
+    "alumniNetwork": "https://brownconnectplus.brown.edu/",
+    "researchOpenings": "https://cs.brown.edu/degrees/undergrad/research/research-opportunities/",
+    "researchGroups": "https://cs.brown.edu/research/",
+    "researchGuide": "https://cs.brown.edu/degrees/undergrad/research/",
+    "researchFunding": "https://utra.brown.edu/",
+    "honorsGuide": "https://cs.brown.edu/degrees/undergrad/concentrating-in-cs/honors/",
+    "thesisArchive": "https://cs.brown.edu/research/pubs/theses/ugrad/",
+    "taApplications": "https://cs.brown.edu/courses/ta/hiring/",
+    "studentJobs": "https://cs.brown.edu/degrees/undergrad/jobs/",
+    "researchSymposium": "https://cs.brown.edu/about/partners/tech-fair/",
+    "studentGroups": "https://cs.brown.edu/degrees/undergrad/resources/",
+    "roomsLabs": "https://cs.brown.edu/about/rooms/",
+    "undergradResources": "https://cs.brown.edu/degrees/undergrad/resources/"
+  },
+  "launchReview": {
+    "eventDetailsConfirmed": false,
+    "contactEmailConfirmed": false,
+    "assetAndFontRightsConfirmed": false
+  }
+}

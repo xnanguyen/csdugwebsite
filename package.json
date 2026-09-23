@@ -1,0 +1,22 @@
+{
+  "name": "brown-cs-dug-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Brown CS DUG's pixel-art community website, with local artwork and interactive games.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "node scripts/serve.mjs --dev",
+    "build": "node scripts/check-site.mjs && node scripts/build-site.mjs",
+    "preview": "node scripts/serve.mjs",
+    "check": "node scripts/check-site.mjs",
+    "check:launch": "node scripts/check-site.mjs --launch",
+    "test": "node --test scripts/test-*.mjs"
+  },
+  "keywords": [
+    "brown",
+    "cs",
+    "dug",
+    "static-site"
+  ],
+  "license": "UNLICENSED"
+}

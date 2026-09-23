@@ -1,0 +1,17 @@
+{
+  "name": "Brown CS DUG",
+  "short_name": "CS DUG",
+  "description": "Brown CS DUG student hub for events, resources, leadership, and community.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#111312",
+  "theme_color": "#111312",
+  "icons": [
+    {
+      "src": "assets/images/csdug-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

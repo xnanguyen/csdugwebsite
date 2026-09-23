@@ -1,0 +1,3640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Brown CS DUG student hub for events, resources, leadership, and undergraduate computer science community.">
+<meta property="og:title" content="Brown CS DUG">
+<meta property="og:description" content="Brown's largest community for computer science students!">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/images/social-preview.svg">
+<!-- deployment-metadata -->
+<meta name="theme-color" content="#111312">
+<link rel="icon" href="assets/images/csdug-logo.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" as="image" href="assets/images/bear-standing.png">
+<link rel="preload" as="image" href="assets/images/bear-jumping.png">
+<link rel="preload" as="image" href="assets/images/brown-bear-statue-indigo.png">
+<link rel="preload" as="font" href="assets/fonts/ABCFavoritMono-Bold.otf" type="font/otf" crossorigin>
+<title>Brown CS DUG</title>
+  <style>
+    @font-face {
+      font-family: "ABC Favorit Mono";
+      src: url("assets/fonts/ABCFavoritMono-Bold.otf") format("opentype");
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "ABC Favorit Mono";
+      src: url("assets/fonts/ABCFavoritMono-Book.otf") format("opentype");
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #111312;
+      --bg-2: #171a18;
+      --panel: #1d211f;
+      --ink: #f3f0e8;
+      --muted: #a8aaa0;
+      --line: #566052;
+      --brown: #8b5e3c;
+      --brown-dark: #4e3629;
+      --red: #c8102e;
+      --lime: #d8ef7f;
+      --cyan: #8fdaf5;
+      --pink: #ff7fb8;
+      --orange: #ff8a4d;
+      --shadow: rgba(0, 0, 0, .4);
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      --heading: "ABC Favorit Mono", var(--mono);
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: var(--sans);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    a.button {
+      font: inherit;
+    }
+
+    .ascii {
+      font-family: var(--mono);
+      white-space: pre;
+      line-height: 1;
+    }
+
+    .site-nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 18px clamp(18px, 4vw, 54px);
+      color: var(--ink);
+      background: linear-gradient(180deg, rgba(17, 19, 18, .88), rgba(17, 19, 18, 0));
+      pointer-events: none;
+    }
+
+    .site-nav a,
+    .site-nav button {
+      pointer-events: auto;
+    }
+
+    body:not(.past-hero) .site-nav {
+      color: #432c48;
+      background: linear-gradient(180deg, rgba(185, 132, 173, .94), rgba(185, 132, 173, 0));
+    }
+
+    body:not(.past-hero) .nav-links { color: #4b304b; }
+
+    .brand {
+      display: block;
+      flex: 0 0 auto;
+      width: 78px;
+      aspect-ratio: 617 / 437;
+    }
+
+    .brand img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .brand:focus-visible {
+      outline: 2px solid var(--lime);
+      outline-offset: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(.55rem, 2vw, 1.2rem);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .8rem;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      padding: 7px 0;
+      border: 0;
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: #fff0b3;
+      text-decoration: none;
+    }
+
+    .nav-toggle { display: none; }
+    .nav-toggle:focus-visible { outline: 2px solid #fff0b3; outline-offset: 3px; }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: center;
+      padding: 112px clamp(18px, 5vw, 72px) clamp(210px, 25vw, 330px);
+      overflow: hidden;
+      color: #432c48;
+      background: linear-gradient(180deg,
+        #bb8db7 0%, #e9a2b1 42%, #ffc3a6 78%, #f3afa2 100%);
+    }
+
+    .pixel-sky,
+    .cloud-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      image-rendering: pixelated;
+      pointer-events: none;
+    }
+
+    .sky-clouds {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      color: #fff0b3;
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    .sky-clouds span {
+      position: absolute;
+      font-family: var(--mono);
+      white-space: pre;
+      line-height: 1.1;
+      text-shadow: 2px 3px 0 rgba(31, 13, 55, .4);
+      animation: cloud-drift 24s ease-in-out infinite;
+    }
+
+    .sky-clouds span:nth-child(1) { top: 12%; left: 7%; }
+    .sky-clouds span:nth-child(2) { top: 19%; left: 37%; font-size: 11px; animation-delay: -6s; }
+    .sky-clouds span:nth-child(3) { top: 13%; right: 8%; font-size: 17px; animation-delay: -12s; }
+    .sky-clouds span:nth-child(4) { bottom: 8%; left: 31%; font-size: 11px; animation-delay: -18s; }
+    .sky-clouds span:nth-child(5) { bottom: 13%; right: 7%; animation-delay: -9s; }
+
+    @keyframes cloud-drift {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(24px, -6px); }
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, .86fr) minmax(300px, 1.14fr);
+      gap: clamp(32px, 5vw, 72px);
+      align-items: center;
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .hero-copy {
+      max-width: 620px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      margin: 0 0 18px;
+      color: var(--lime);
+      font-family: var(--mono);
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .kicker::before {
+      content: ">";
+      color: var(--pink);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--heading);
+      font-weight: 700;
+      font-size: clamp(3rem, 9.2vw, 8rem);
+      line-height: .88;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .hero-title-line {
+      position: relative;
+      display: inline-block;
+      isolation: isolate;
+      white-space: nowrap;
+    }
+
+    .hero-title-cs { position: relative; z-index: 1; }
+    .hero-title-dug { position: relative; z-index: 3; }
+    .hero-title-sticker {
+      position: absolute;
+      z-index: 2;
+      left: 1.065em;
+      top: .03em;
+      width: .9em;
+      aspect-ratio: 444 / 372;
+      padding: 0;
+      border: 0;
+      background: none;
+      font: inherit;
+      cursor: pointer;
+      user-select: none;
+      perspective: 480px;
+      perspective-origin: 50% 30%;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hero-title-sticker:focus-visible { outline: none; }
+    .hero-title-sticker::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: #453547;
+      opacity: .08;
+      -webkit-mask: url("assets/images/hero-bear-sticker-source.png") 80.069324% 19.444444% / 619.81981982% 554.83870968% no-repeat;
+      mask: url("assets/images/hero-bear-sticker-source.png") 80.069324% 19.444444% / 619.81981982% 554.83870968% no-repeat;
+      transform: translate(1px, 3px) rotate(-6deg);
+      filter: blur(2px);
+      transition: transform 320ms ease, opacity 320ms ease;
+      pointer-events: none;
+    }
+    .hero-title-bear {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      clip-path: polygon(0 3.8%, 45% 3.8%, 45% 0, 100% 0, 100% 100%, 0 100%);
+      transform-origin: 50% 65%;
+      transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotate(-6deg);
+      transition: transform 320ms cubic-bezier(.2, .7, .2, 1);
+      pointer-events: none;
+    }
+    /* Display the entire purple-backed artwork from the unchanged source PNG. */
+    .hero-title-bear img {
+      position: absolute;
+      width: 619.81981982%; max-width: none; height: auto;
+      left: -416.21621622%; top: -88.44086022%;
+    }
+    .hero-title-bear::after {
+      content: "";
+      position: absolute; inset: 0;
+      opacity: 0;
+      background:
+        radial-gradient(ellipse at var(--shine-x, 30%) var(--shine-y, 20%), #fff6 0%, transparent 58%),
+        linear-gradient(115deg, transparent 20%, #9fe6ff33 34%, #fff7 43%, #f7b8ff33 51%, #ffeab833 59%, transparent 72%);
+      background-size: 100% 100%, 250% 250%;
+      background-position: center, var(--shine-x, 30%) var(--shine-y, 20%);
+      -webkit-mask: url("assets/images/hero-bear-sticker-source.png") 80.069324% 19.444444% / 619.81981982% 554.83870968% no-repeat;
+      mask: url("assets/images/hero-bear-sticker-source.png") 80.069324% 19.444444% / 619.81981982% 554.83870968% no-repeat;
+      mix-blend-mode: screen;
+      transition: opacity 250ms ease, background-position 150ms ease;
+    }
+    .hero-title-sticker.is-active::before {
+      transform: translate(2px, 10px) rotate(-6deg) scale(.96);
+      opacity: .18;
+    }
+    .hero-title-sticker.is-active .hero-title-bear {
+      transform: translate3d(var(--shift-x, 0px), -7px, 22px) rotateX(var(--rotate-x, 14deg)) rotateY(var(--rotate-y, -10deg)) rotate(-6deg);
+    }
+    .hero-title-sticker.is-active .hero-title-bear::after { opacity: .32; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-title-sticker::before, .hero-title-bear, .hero-title-bear::after { transition: none; }
+      .hero-title-sticker.is-active::before { transform: translate(1px, 3px) rotate(-6deg); }
+      .hero-title-sticker.is-active .hero-title-bear { transform: rotate(-6deg); }
+    }
+
+    .hero-copy p {
+      width: min(36rem, 100%);
+      margin: 22px 0 28px;
+      color: #58364a;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    .press-start {
+      position: relative;
+      display: block;
+      z-index: 2;
+      padding: 10px 0;
+      color: #58364a;
+      font: 700 14px var(--mono);
+      white-space: nowrap;
+      cursor: default;
+      text-shadow: none;
+      animation: start-pulse 1.8s ease-in-out infinite;
+    }
+
+    .hero-copy .hero-tagline { margin-bottom: 6px; }
+
+    @keyframes start-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .45; }
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      color: var(--ink);
+      background: var(--lime);
+      border: 1px solid var(--lime);
+      box-shadow: 5px 5px 0 var(--shadow);
+      font-family: var(--mono);
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .button.secondary {
+      color: var(--ink);
+      background: transparent;
+      color: var(--lime);
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translate(2px, 2px);
+      box-shadow: 3px 3px 0 var(--shadow);
+    }
+
+    .game-shell {
+      position: relative;
+      min-height: 430px;
+      padding: 50px 0 18px;
+    }
+
+    .hero .kicker::before { color: #8a3d63; }
+
+    .game-stage {
+      position: relative;
+      height: min(48vh, 360px);
+      min-height: 275px;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .game-overlay {
+      position: absolute;
+      inset: auto 16px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 1rem;
+      color: #f2d5ce;
+      font-family: var(--mono);
+      font-size: .78rem;
+      pointer-events: none;
+    }
+
+    .hero .game-overlay strong { color: #ffd19a; }
+
+    .game-overlay strong {
+      color: var(--lime);
+      font-weight: 800;
+    }
+
+    .scroll-bear {
+      position: fixed;
+      left: clamp(10px, 3vw, 42px);
+      top: 50%;
+      z-index: 20;
+      width: 54px;
+      height: 89px;
+      color: var(--lime);
+      font-family: var(--mono);
+      font-size: clamp(.58rem, 1.45vw, .9rem);
+      line-height: 1;
+      filter: drop-shadow(0 8px 0 rgba(0,0,0,.28));
+      opacity: 0;
+      transform: none;
+      pointer-events: none;
+    }
+
+    .scroll-bear.visible {
+      opacity: 1;
+    }
+
+    .scroll-bear.hop {
+      transform: none;
+    }
+
+    .scroll-bear canvas {
+      image-rendering: pixelated;
+    }
+
+    .scroll-bear .jumping-sprite { display: none; }
+    .scroll-bear.hop .standing-sprite { display: none; }
+    .scroll-bear.hop .jumping-sprite { display: block; }
+
+    #game {
+      image-rendering: pixelated;
+    }
+
+    #game:focus { outline: none; }
+    main {
+      position: relative;
+      background: #080f22;
+    }
+
+    .section {
+      position: relative;
+      min-height: 96svh;
+      display: grid;
+      align-items: center;
+      padding: 96px clamp(18px, 6vw, 84px);
+      border-top: 0;
+    }
+
+    .section:not(#events) { --muted: #d8d8e9; }
+
+    .section-platform {
+      position: relative;
+      display: block;
+      width: var(--bar-width, 112px);
+      height: 44px;
+      margin: 0 auto 30px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .section-platform::after {
+      content: "";
+      position: absolute;
+      inset: 22px 0 auto;
+      height: 8px;
+      background: var(--platform-top, #fff0b3);
+      box-shadow: 0 6px 0 var(--platform-edge, #c8838f), 0 9px 0 var(--platform-shadow, #82526f);
+    }
+
+    .section:not(#events), .event-lower {
+      --platform-top: #dce2ff;
+      --platform-edge: #9599d0;
+      --platform-shadow: #535b91;
+    }
+
+    .section-platform:focus-visible {
+      outline: none;
+    }
+
+    .section-platform:focus-visible::after {
+      background: var(--platform-top, #fffbe8);
+      box-shadow: 0 0 0 2px var(--platform-top, #fff0b3), 0 6px 0 var(--platform-edge, #c8838f), 0 9px 0 var(--platform-shadow, #82526f);
+    }
+
+    .section-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1040px, 100%);
+      margin: 0 auto;
+      padding-left: clamp(0px, 10vw, 128px);
+    }
+
+    .section-header {
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: var(--heading);
+      font-weight: 700;
+      font-size: clamp(2.2rem, 6vw, 5rem);
+      line-height: .95;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .section-header p {
+      max-width: 620px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card,
+    .resource {
+      background: rgba(19, 24, 49, .72);
+      border: 1px solid rgba(195, 183, 228, .3);
+      box-shadow: 8px 8px 0 rgba(0, 0, 0, .22);
+    }
+
+    .card {
+      padding: 22px;
+    }
+
+    .card .ascii {
+      color: var(--cyan);
+      margin: 0 0 18px;
+      font-size: .82rem;
+    }
+
+    .card h3,
+    .resource h3 {
+      margin: 0 0 10px;
+      color: var(--ink);
+      font-family: var(--heading);
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .card p,
+    .resource p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    #events {
+      min-height: calc(100svh + 160px);
+      align-items: start;
+      padding-top: 100px;
+      padding-bottom: 320px;
+      border-top: 0;
+      background: transparent;
+      overflow: hidden;
+      scroll-margin-top: 120px;
+    }
+
+    #eventsClouds { z-index: 3; }
+    #eventsSky {
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%,
+        #000 calc(100% - var(--night-overlap, 420px)),
+        rgba(0, 0, 0, .5) calc(100% - var(--night-overlap, 420px) / 2), transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 0%,
+        #000 calc(100% - var(--night-overlap, 420px)),
+        rgba(0, 0, 0, .5) calc(100% - var(--night-overlap, 420px) / 2), transparent 100%);
+    }
+
+    #events .section-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, 100%);
+      padding-left: 0;
+      padding-top: 0;
+    }
+
+    #events .events-heading { text-align: center; margin-bottom: 48px; }
+    #events .events-heading h2 { color: #fff0e5; letter-spacing: 0; }
+
+    .event-rails {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .event-rails .section-platform { position: absolute; margin: 0; pointer-events: auto; }
+    .event-rails .event-lower { left: clamp(36px, 6vw, 84px); top: calc(100% + 24px); }
+    #events .moon-platform { position: absolute; margin: 0; z-index: 2; }
+    .moon-platform::after { display: none; }
+
+    .events-window {
+      width: min(760px, 100%);
+      margin: 0 auto;
+      overflow: hidden;
+      color: #292c34;
+      background: #ededf0;
+      border: 4px solid #a5a8ba;
+      border-radius: 0;
+      box-shadow: 8px 8px 0 #090e25, 12px 12px 0 rgba(130, 139, 199, .35);
+      font-family: var(--mono);
+      clip-path: polygon(0 8px, 8px 8px, 8px 0, calc(100% - 8px) 0,
+        calc(100% - 8px) 8px, 100% 8px, 100% calc(100% - 8px),
+        calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) 100%,
+        8px 100%, 8px calc(100% - 8px), 0 calc(100% - 8px));
+    }
+
+    .window-titlebar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 10px 85px;
+      background: #d1d3de;
+      border-bottom: 3px solid #a5a8ba;
+    }
+
+    .window-titlebar h2 { font: 700 13px var(--mono); text-transform: none; letter-spacing: 0; }
+    .window-dots { position: absolute; left: 16px; display: flex; gap: 8px; }
+    .window-dots i { width: 10px; height: 10px; border: 2px solid rgba(0, 0, 0, .15); background: #ff6058; }
+    .window-dots i:nth-child(2) { background: #ffbd2e; }
+    .window-dots i:nth-child(3) { background: #28c840; }
+    .window-content { padding: 22px 28px; }
+    .window-content > p { margin: 0 0 16px; color: #626670; font-size: 13px; }
+    .terminal-command { color: #373963 !important; font-size: 14px !important; font-weight: 700; overflow-wrap: anywhere; }
+    .terminal-command span { color: #376554; }
+    .event-entry { padding: 16px 0; border-top: 2px dashed #ced0d9; }
+    .event-entry h3 { margin: 0 0 8px; font-size: 16px; }
+    .event-entry h3::before { content: "> "; color: #6267a0; }
+    .event-entry p { margin: 3px 0; color: #565b65; font-size: 13px; }
+    .event-recurring { padding-top: 16px; border-top: 2px dashed #ced0d9; }
+    .event-recurring h3 { margin: 0 0 8px; font-size: 13px; color: #626670; }
+    .event-recurring p { margin: 0; font-size: 12px; color: #565b65; }
+    .terminal-status { display: flex; justify-content: space-between; gap: 12px; padding: 8px 16px; border-top: 2px solid #c4c7d2; background: #dfe1e8; color: #565b65; font-size: 11px; }
+
+    .terminal-card {
+      padding: 0;
+      overflow: hidden;
+      background: rgba(13, 15, 14, .92);
+      border: 1px solid rgba(143, 218, 245, .28);
+      box-shadow: 8px 8px 0 rgba(0, 0, 0, .24);
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, .05);
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--pink);
+    }
+
+    .dot:nth-child(2) { background: var(--orange); }
+    .dot:nth-child(3) { background: var(--lime); }
+
+    .terminal-body {
+      padding: 20px;
+      font-family: var(--mono);
+      color: #dfe5d4;
+      font-size: .9rem;
+    }
+
+    .terminal-body p {
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    .terminal-body b {
+      color: var(--lime);
+      font-weight: 800;
+    }
+
+    .terminal-body span {
+      color: var(--cyan);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr .8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    #about { min-height: 100svh; padding-block: 224px 32px; }
+    #about > .about-entry {
+      position: absolute; top: 152px; right: clamp(18px, 9vw, 130px);
+      margin: 0; z-index: 2;
+    }
+    #aboutForest { height: calc(100% + 120px); }
+    #about .section-inner { width: min(900px, 100%); padding-left: 0; }
+    #about .section-header { text-align: center; margin-bottom: 88px; }
+    #about h2 { font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: 0; }
+    #about .section-header p { margin-inline: auto; }
+    .about-stack {
+      position: relative; width: min(660px, 100%); margin: auto;
+      height: 286px; margin-bottom: 180px;
+    }
+    .about-folder {
+      position: absolute;
+      width: 144px;
+      left: 10%; top: 0;
+    }
+    .about-folder:nth-child(2) { left: auto; right: 8%; top: 24px; }
+    .about-folder:nth-child(3) { left: calc(50% - 72px); top: auto; bottom: 0; }
+    .about-folder:has([aria-expanded="true"]) { z-index: 4; }
+    .about-folder .folder-platform {
+      width: 100%; height: auto; margin: 0; color: #fff4da;
+      font: 700 1rem var(--mono); text-align: center;
+    }
+    .folder-platform::after { display: none; }
+    .folder-platform:focus-visible { outline: none; }
+    .folder-icon { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; image-rendering: pixelated; }
+    .folder-name { display: block; margin-top: 10px; text-shadow: 2px 2px #393152; }
+    .folder-platform[aria-expanded="true"] .folder-name,
+    .folder-platform:focus-visible .folder-name { text-decoration: underline; text-underline-offset: 5px; }
+    .folder-message {
+      position: absolute; top: 12px; right: calc(100% + 24px); width: 260px;
+      min-width: 0; padding: 20px; margin: 0;
+      color: #342f48; background: #f2edff;
+      font-size: .95rem; line-height: 1.6;
+      overflow-wrap: anywhere;
+      box-shadow: 0 -4px #b7a8d5, 0 4px #b7a8d5, -4px 0 #b7a8d5, 4px 0 #b7a8d5, 4px 8px #443658;
+    }
+    /* Keep description space reserved in the compact grid when a bubble is closed. */
+    .folder-message[hidden] { display: block; visibility: hidden; pointer-events: none; }
+    .folder-message h3 { margin: 0 0 8px; font: 700 1rem/1.4 var(--mono); text-transform: none; }
+    .folder-message p { margin: 0; font: inherit; }
+    .folder-message::before {
+      content: ""; position: absolute; left: calc(100% - 2px); top: 28px; width: 20px; height: 16px;
+      background: #f2edff;
+      transform: rotate(90deg);
+      clip-path: polygon(40% 0, 60% 0, 60% 25%, 80% 25%, 80% 50%, 100% 50%, 100% 100%, 0 100%, 0 50%, 20% 50%, 20% 25%, 40% 25%);
+    }
+    #academics-message { right: auto; left: calc(100% + 24px); }
+    #academics-message::before { left: auto; right: calc(100% - 2px); transform: rotate(-90deg); }
+    #career-message { top: calc(100% + 28px); left: 50%; right: auto; width: 440px; transform: translateX(-50%); }
+    #career-message::before { left: calc(50% - 10px); top: -16px; transform: none; }
+
+    @media (max-width: 1180px) {
+      .about-stack { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 24px; height: auto; margin-bottom: 0; }
+      .about-folder, .about-folder:nth-child(2), .about-folder:nth-child(3) { position: relative; inset: auto; width: auto; min-width: 0; }
+      .about-folder:nth-child(3) { grid-column: 1 / -1; width: min(440px, 100%); justify-self: center; }
+      .about-folder .folder-platform { width: 144px; margin-inline: auto; }
+      .folder-message, #academics-message, #career-message { position: relative; inset: auto; width: 100%; margin-top: 28px; transform: none; }
+      .folder-message::before, #academics-message::before, #career-message::before { left: calc(50% - 10px); right: auto; top: -16px; transform: none; }
+    }
+
+    @media (max-width: 700px) {
+      #about { padding-block: 224px 28px; }
+      #about h2 { font-size: 2.2rem; }
+      #about .section-header p { font-size: .95rem; line-height: 1.5; }
+      .about-stack { max-width: 520px; gap: 28px 20px; }
+      .about-folder .folder-platform { width: 108px; font-size: .9rem; }
+      .folder-message { padding: 12px; font-size: .85rem; line-height: 1.5; }
+    }
+
+    .ascii-panel {
+      display: grid;
+      place-items: center;
+      min-height: 340px;
+      color: var(--cyan);
+      background:
+        radial-gradient(circle at center, rgba(143, 218, 245, .08), transparent 18rem),
+        rgba(15, 22, 47, .75);
+      border: 1px solid rgba(143, 218, 245, .24);
+      box-shadow: 8px 8px 0 rgba(0, 0, 0, .24);
+      overflow: hidden;
+    }
+
+    .ascii-panel pre {
+      margin: 0;
+      font-size: clamp(.62rem, 1.35vw, .95rem);
+      line-height: 1.05;
+    }
+
+    .profiles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .profile {
+      position: relative;
+      min-width: 0;
+      aspect-ratio: 1019 / 594;
+      container-type: inline-size;
+      perspective: 1000px;
+    }
+
+    .member-card {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 6% / 11%;
+      background: #192952;
+      box-shadow: 0 5px 12px rgb(11 19 43 / 18%);
+      transform: rotateX(0deg) rotateY(0deg);
+      transition: transform 220ms ease-out, box-shadow 220ms ease-out;
+    }
+
+    .profile.is-tilted .member-card {
+      transform: translateY(-3px) rotateX(var(--card-rotate-x, 3deg)) rotateY(var(--card-rotate-y, -3deg));
+      box-shadow: 0 12px 22px rgb(11 19 43 / 24%);
+    }
+
+    .member-card-art {
+      position: absolute;
+      max-width: none;
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Crop transparent export margins in layout; keep the supplied PNGs unchanged. */
+    .member-card-art {
+      width: 115.996075%;
+      left: -6.673209%;
+      top: -18.013468%;
+    }
+
+    .member-photo {
+      position: absolute;
+      left: 7.6%;
+      top: 19.8%;
+      width: 33%;
+      height: 67.7%;
+      background: #eeeeef;
+    }
+
+    .member-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .member-details {
+      position: absolute;
+      inset: 34% 5% 7% 46.5%;
+      color: #f7f4f8;
+      font-family: var(--heading);
+      font-weight: 400;
+      font-size: clamp(11px, 3.2cqw, 18px);
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .member-name-line {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0 .6em;
+      margin-bottom: 4.5cqw;
+    }
+
+    .member-name {
+      margin: 0;
+      font: 700 clamp(14px, 3.8cqw, 22px) / 1.25 var(--heading);
+    }
+
+    .member-pronouns { font-size: .92em; }
+    .member-details p { margin: 0 0 2.5cqw; }
+
+    .team-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .team-page-numbers { display: flex; gap: 10px; flex-wrap: wrap; }
+    .team-pagination[hidden] { display: none; }
+
+    .team-page-button {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-width: 40px;
+      min-height: 40px;
+      padding: 6px;
+      border: 0;
+      border-radius: 0;
+      color: #f4edf8;
+      background: transparent;
+      box-shadow: none;
+      font: 700 16px / 1 var(--heading);
+      cursor: pointer;
+    }
+
+    .team-page-button:hover:not(:disabled),
+    .team-page-button[aria-current="page"] {
+      color: #ffffff;
+    }
+
+    .team-page-button::after {
+      content: "";
+      position: absolute;
+      bottom: 2px;
+      left: 35%;
+      right: 35%;
+      height: 2px;
+      background: currentColor;
+      transform: scaleX(0);
+    }
+
+    .team-page-button:hover:not(:disabled)::after,
+    .team-page-button[aria-current="page"]::after,
+    .team-page-button:focus-visible::after { transform: scaleX(1); }
+    .team-page-button:focus-visible { outline: none; }
+    .team-page-button:focus-visible::after { left: 15%; right: 15%; height: 3px; }
+    .team-page-button:disabled { opacity: .4; cursor: default; }
+    .team-page-button:active:not(:disabled) { transform: translateY(2px); }
+    .team-page-arrow { width: 16px; height: 20px; fill: currentColor; }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .profile.is-tilted .member-card { transform: none; }
+    }
+
+    #team {
+      min-height: max(100svh, 1120px);
+      align-items: start;
+      padding-top: 120px;
+      padding-bottom: clamp(220px, 18vw, 280px);
+      overflow: hidden;
+    }
+
+    #team .section-inner {
+      width: min(1100px, 66%);
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    #team .section-header { color: #f2e9df; }
+    #team .section-header p { color: #e1e0eb; }
+    #team .team-stop { margin-top: 32px; cursor: default; }
+
+    .team-scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      image-rendering: pixelated;
+      -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+      mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+    }
+
+    .resources {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    #resources {
+      display: block; padding-inline: 0; padding-bottom: 340px;
+      min-height: 100svh;
+      overflow: visible;
+    }
+    #resources .section-inner { width: min(1040px, calc(100% - 36px)); padding-left: 0; }
+    #resources .resource-upper { margin-left: 0; }
+    #resources > .resource-lower {
+      position: absolute; right: clamp(18px, 6vw, 84px); bottom: 36px;
+      margin: 0; z-index: 2;
+    }
+    #resources .section-header { text-align: center; text-shadow: 0 2px 3px #151d39; }
+    #resources .section-header p { margin-inline: auto; }
+    #resources h2 { letter-spacing: 0; }
+    #resources .resource { background: rgba(28, 36, 64, .93); }
+    .resources-atmosphere {
+      position: absolute; z-index: 0; inset: -180px 0;
+      pointer-events: none; opacity: 1;
+      filter: url("#night-cloud-colors");
+      background: url("assets/images/night-cloud-banks.png") center / cover no-repeat;
+      image-rendering: pixelated;
+      -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+      mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+    }
+    .resources-atmosphere::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 66%;
+      height: clamp(340px, 38vw, 580px);
+      background: url("assets/images/night-cloud-banks.png") left bottom / auto 100% no-repeat;
+      transform: scaleX(-1);
+      -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+      mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+    }
+    .cit-scene {
+      position: absolute; z-index: 0; isolation: isolate; bottom: -80px; left: 0; width: 100%;
+      height: clamp(480px, 45vw, 680px);
+      margin: 0; pointer-events: none;
+      -webkit-mask-image: linear-gradient(to bottom, #000 calc(var(--cit-ground, 400px) - var(--cit-fade, 150px)), rgba(0, 0, 0, .65) calc(var(--cit-ground, 400px) - var(--cit-fade, 150px) * .43), transparent var(--cit-ground, 400px));
+      mask-image: linear-gradient(to bottom, #000 calc(var(--cit-ground, 400px) - var(--cit-fade, 150px)), rgba(0, 0, 0, .65) calc(var(--cit-ground, 400px) - var(--cit-fade, 150px) * .43), transparent var(--cit-ground, 400px));
+    }
+    .city-backdrop {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      image-rendering: pixelated; opacity: .34;
+    }
+    .cit-building {
+      position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+      display: block; width: min(760px, 66%); height: auto; aspect-ratio: 3 / 2;
+      image-rendering: pixelated; filter: saturate(.72) brightness(.84); opacity: .72;
+    }
+    .cit-clouds {
+      position: absolute; z-index: 1; left: 0; right: 0; bottom: -120px;
+      height: clamp(280px, 27vw, 420px);
+      pointer-events: none; overflow: hidden; opacity: 1;
+      filter: url("#night-cloud-colors");
+      background: url("assets/images/night-cloud-banks.png") center 125% / 76% auto no-repeat;
+      image-rendering: pixelated;
+      -webkit-mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 90%, transparent);
+      mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 90%, transparent);
+    }
+    .cit-clouds::before, .cit-clouds::after {
+      content: ""; position: absolute; inset: 0 auto 0 0; width: 108%;
+      background: url("assets/images/night-cloud-banks.png") left bottom / 100% auto no-repeat;
+      image-rendering: pixelated;
+    }
+    .cit-clouds::after { left: auto; right: 0; transform: scaleX(-1); }
+
+    @media (max-width: 640px) {
+      #resources { padding-top: 152px; padding-bottom: 250px; }
+      .resources-atmosphere { background-size: 160% auto; background-position: center 42%; }
+      .resources-atmosphere::after { width: 88%; height: 320px; }
+      .cit-scene { height: 420px; }
+      .cit-building { width: 84%; }
+      .cit-clouds { bottom: -100px; height: 240px; background-size: auto 150%; }
+      .cit-clouds::before, .cit-clouds::after { width: 118%; background-size: auto 180%; }
+    }
+
+    .resource {
+      padding: 22px;
+      min-width: 0;
+    }
+
+    .resource ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .9rem;
+    }
+
+    .resource li {
+      padding: 9px 0;
+      border-top: 1px dashed rgba(216, 239, 127, .18);
+    }
+
+    .resource a,
+    .resource [aria-disabled="true"] {
+      color: var(--cyan);
+      overflow-wrap: anywhere;
+    }
+    .resource a:hover,
+    .resource a:focus-visible { color: #fff0b3; text-underline-offset: 4px; }
+
+    [data-site-link][aria-disabled="true"] { cursor: default; }
+    .link-pending { color: var(--muted); font-size: .7em; }
+
+    #contact {
+      min-height: 0;
+      padding: 18px 18px 10px;
+    }
+
+    #contact .section-inner {
+      width: 100%;
+      padding-left: 0;
+      text-align: center;
+    }
+
+    #contact h2 { font-size: 1.125rem; line-height: 1.4; letter-spacing: 0; }
+    .team-water {
+      position: absolute; z-index: 0; left: 0; width: 100%;
+      pointer-events: none; image-rendering: pixelated;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px clamp(16px, 4vw, 32px);
+      margin-top: 12px;
+      font-family: var(--mono);
+      font-size: 1rem;
+    }
+
+    .contact-links a,
+    .contact-links span {
+      display: inline-flex;
+      align-items: center;
+      gap: .25em;
+      min-height: 44px;
+      color: var(--cyan);
+    }
+
+    .contact-links a:hover,
+    .contact-links a:focus-visible {
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+    footer {
+      padding: 12px 18px 18px;
+      color: var(--muted);
+      background: #080f22;
+      border-top: 0;
+      font-family: var(--mono);
+      font-size: .78rem;
+      text-align: center;
+    }
+
+    @media (max-width: 920px) {
+      .sky-clouds span:nth-child(1) { top: 74px; left: 8%; font-size: 9px; }
+      .sky-clouds span:nth-child(2) { display: none; }
+      .sky-clouds span:nth-child(3) { top: 68px; right: 5%; font-size: 9px; }
+
+      .hero-grid,
+      .event-grid,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cards,
+      .profiles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .section-inner {
+        padding-left: clamp(64px, 13vw, 104px);
+      }
+
+      #team .section-inner { width: 62%; }
+      #team .profiles { grid-template-columns: 1fr; }
+
+      .game-shell {
+        min-height: 360px;
+      }
+    }
+
+    @media (max-width: 1179px) {
+      #events { padding-top: 244px; padding-bottom: 420px; }
+      #events .events-heading { margin-bottom: 96px; }
+      .event-rails .event-lower { top: calc(100% + 154px); }
+    }
+
+    @media (max-width: 640px) {
+      .site-nav {
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        padding: 10px;
+        border: 0;
+        color: inherit;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .nav-toggle svg { width: 24px; height: 24px; }
+      .site-nav.is-open .nav-links {
+        position: absolute;
+        top: 76px;
+        left: 18px;
+        right: 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 16px;
+        color: #f3f0e8;
+        background: #20243d;
+        pointer-events: auto;
+      }
+      .site-nav.is-open .nav-links a { min-height: 44px; display: flex; align-items: center; }
+
+      .hero {
+        padding-top: 88px;
+        padding-bottom: 180px;
+      }
+
+      .game-shell {
+        padding: 10px 0;
+        min-height: 320px;
+      }
+
+      .game-stage {
+        min-height: 250px;
+      }
+
+      .scroll-bear {
+        width: 54px;
+        height: 89px;
+      }
+
+      .window-content { padding: 22px; }
+      #events { padding-top: 244px; padding-inline: 18px; padding-bottom: 420px; }
+      .event-rails .event-lower { top: calc(100% + 154px); }
+      .window-titlebar { padding-inline: 55px 10px; }
+      .window-dots { left: 10px; gap: 4px; }
+      .window-dots i { width: 8px; height: 8px; }
+      .terminal-status { font-size: 10px; }
+
+      .section {
+        padding-block: 80px;
+      }
+
+      #team { min-height: 1200px; padding-top: 88px; padding-bottom: 180px; }
+      #team .section-inner { width: 100%; }
+      #team .profiles { grid-template-columns: 1fr; margin-top: 410px; }
+      .team-pagination,
+      .team-page-numbers { gap: 6px; }
+
+      .section::before {
+        left: 8px;
+      }
+
+      .section-inner {
+        padding-left: 54px;
+      }
+
+      .cards,
+      .profiles,
+      .resources {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 16vw, 4.5rem);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="night-cloud-colors" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feComponentTransfer>
+          <feFuncA type="discrete" tableValues="0 1"/>
+        </feComponentTransfer>
+        <feColorMatrix type="matrix" values=".4 0 0 0 .20  0 .4 0 0 .23  0 0 .4 0 .30  0 0 0 1 0"/>
+      </filter>
+    </defs>
+  </svg>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="brand" href="#top" aria-label="Brown CS DUG home">
+      <img src="assets/images/csdug-logo.svg" alt="CS DUG" width="617" height="437" fetchpriority="high">
+    </a>
+    <button class="nav-toggle" type="button" aria-label="Open navigation" title="Menu" aria-expanded="false" aria-controls="primary-links">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 5h18M3 12h18M3 19h18"/></svg>
+    </button>
+    <div class="nav-links" id="primary-links">
+      <a href="#events">events</a>
+      <a href="#about">about</a>
+      <a href="#resources">resources</a>
+      <a href="#team">team</a>
+      <a href="#contact">contact</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <canvas class="pixel-sky" id="pixelSky" aria-hidden="true"></canvas>
+    <canvas class="pixel-sky" id="campusSky" aria-hidden="true"></canvas>
+    <canvas class="cloud-layer" id="homeClouds" aria-hidden="true"></canvas>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">brown computer science department undergraduate group</p>
+        <h1 aria-label="Brown CS DUG">Brown<br><span class="hero-title-line"><span class="hero-title-cs">CS</span> <span class="hero-title-dug">DUG</span><button class="hero-title-sticker" type="button" aria-label="Tilt the bear sticker" title="Tilt the bear sticker"><span class="hero-title-bear"><img src="assets/images/hero-bear-sticker-source.png" alt="" width="2752" height="2064" draggable="false"></span></button></span></h1>
+        <p class="hero-tagline">Brown's largest community for computer science students!</p>
+        <span class="press-start">PRESS SPACE TO START</span>
+      </div>
+
+      <section class="game-shell" aria-label="Mini game">
+        <div class="game-stage">
+          <canvas id="game" width="900" height="420" tabindex="0" aria-label="Pixel bear platform jumping game"></canvas>
+        </div>
+      </section>
+    </div>
+  </header>
+
+  <div class="scroll-bear" aria-hidden="true">
+    <canvas class="standing-sprite" width="112" height="196"></canvas>
+    <canvas class="jumping-sprite" width="112" height="196"></canvas>
+  </div>
+
+  <main>
+    <canvas class="pixel-sky" id="nightSky" aria-hidden="true"></canvas>
+    <section class="section" id="events">
+      <canvas class="pixel-sky" id="eventsSky" aria-hidden="true"></canvas>
+      <canvas class="cloud-layer" id="eventsClouds" aria-hidden="true"></canvas>
+      <button class="section-platform moon-platform" type="button" aria-label="Jump from the moon to the lower left bar" title="Jump to the lower left bar"></button>
+      <div class="section-inner">
+        <div class="section-header events-heading"><h2>Events</h2></div>
+        <div class="event-rails">
+          <button class="section-platform event-lower" type="button" aria-label="Jump to About Us" title="Jump to About Us"></button>
+        </div>
+        <article class="events-window" aria-labelledby="eventsTitle">
+          <div class="window-titlebar">
+            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <h2 id="eventsTitle">events.sh &mdash; cs-dug</h2>
+          </div>
+          <div class="window-content">
+            <p class="terminal-command"><span>student@brown:~$</span> ./events --list</p>
+            <p># Meet people. Share ideas. Find your community.</p>
+            <div class="event-entry">
+              <h3>CS x Wellness Day</h3>
+              <p>when: Monday, April 29 &middot; 3:00pm - 5:00pm</p>
+              <p>where: ERC + Sciences Quad</p>
+            </div>
+            <div class="event-entry">
+              <h3>Cookies with the DUGs</h3>
+              <p>when: 5:00pm - 6:00pm</p>
+              <p>where: CIT Third-Floor Atrium</p>
+            </div>
+            <div class="event-recurring">
+              <h3>// recurring</h3>
+              <p>Course fairs &middot; Tech talks &middot; Resume reviews &middot; Social mixers &middot; Student feedback sessions</p>
+            </div>
+          </div>
+          <div class="terminal-status"><span>~/cs-dug/events</span><span>2 events &middot; ready</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <canvas class="cloud-layer" id="aboutStars" aria-hidden="true"></canvas>
+      <canvas class="pixel-sky" id="aboutForest" aria-hidden="true"></canvas>
+      <button class="section-platform about-entry" type="button" aria-label="Jump to the community folder" title="Jump to the community folder"></button>
+      <div class="section-inner">
+        <div class="section-header">
+          <h2>About Us</h2>
+          <p>The DUG works with the Brown CS department to support undergraduates concentrating in computer science.</p>
+        </div>
+        <div class="about-stack">
+            <article class="about-folder">
+              <button class="section-platform folder-platform" type="button" aria-expanded="false" aria-controls="community-message">
+                <canvas class="folder-icon" width="120" height="90" data-color="yellow" aria-hidden="true"></canvas>
+                <span class="folder-name">community</span>
+              </button>
+              <div class="folder-message" id="community-message" role="region" aria-labelledby="community-title" hidden>
+                <h3 id="community-title">Find your people in CS.</h3>
+                <p>Connect with students across classes and concentrations, make new friends, and get involved in the Brown CS community.</p>
+              </div>
+            </article>
+            <article class="about-folder">
+              <button class="section-platform folder-platform" type="button" aria-expanded="false" aria-controls="academics-message">
+                <canvas class="folder-icon" width="120" height="90" data-color="green" aria-hidden="true"></canvas>
+                <span class="folder-name">academics</span>
+              </button>
+              <div class="folder-message" id="academics-message" role="region" aria-labelledby="academics-title" hidden>
+                <h3 id="academics-title">Navigate CS at Brown.</h3>
+                <p>Explore courses, plan your concentration, and find academic resources and advice from fellow students.</p>
+              </div>
+            </article>
+            <article class="about-folder">
+              <button class="section-platform folder-platform" type="button" aria-expanded="false" aria-controls="career-message">
+                <canvas class="folder-icon" width="120" height="90" data-color="red" aria-hidden="true"></canvas>
+                <span class="folder-name">career</span>
+              </button>
+              <div class="folder-message" id="career-message" role="region" aria-labelledby="career-title" hidden>
+                <h3 id="career-title">Explore what comes next.</h3>
+                <p>Discover career paths, prepare for internships, and connect with alumni and industry professionals.</p>
+              </div>
+            </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="resources">
+      <canvas class="cloud-layer" id="resourcesClouds" aria-hidden="true"></canvas>
+      <div class="resources-atmosphere" aria-hidden="true"></div>
+      <div class="section-inner">
+        <button class="section-platform resource-upper" type="button" aria-label="Jump to the lower right Resources bar" title="Jump to the lower right Resources bar"></button>
+        <div class="section-header">
+          <h2>Resources</h2>
+          <p>Plan your courses, explore careers, find research, and get involved in Brown CS.</p>
+        </div>
+        <div class="resources">
+          <article class="resource">
+            <h3>&gt; academics</h3>
+            <ul>
+              <li><span data-site-link="courseCatalog" aria-disabled="true">course catalog + sections</span></li>
+              <li><span data-site-link="concentrationRequirements" aria-disabled="true">concentration requirements</span></li>
+              <li><span data-site-link="concentrationHandbook" aria-disabled="true">concentration handbook</span></li>
+              <li><span data-site-link="advising" aria-disabled="true">advising and office hours</span></li>
+              <li><span data-site-link="studyAbroad" aria-disabled="true">study abroad approvals</span></li>
+              <li><span data-site-link="mastersOptions" aria-disabled="true">fifth-year master's options</span></li>
+            </ul>
+          </article>
+          <article class="resource">
+            <h3>&gt; career</h3>
+            <ul>
+              <li><span data-site-link="careerCourseMap" aria-disabled="true">tech careers + course maps</span></li>
+              <li><span data-site-link="techRecruiting" aria-disabled="true">recruiting + internships</span></li>
+              <li><span data-site-link="csGigs" aria-disabled="true">CS gigs + side jobs</span></li>
+              <li><span data-site-link="careerEvents" aria-disabled="true">career + employer events</span></li>
+              <li><span data-site-link="resumeInterviews" aria-disabled="true">resume + interview resources</span></li>
+              <li><span data-site-link="alumniNetwork" aria-disabled="true">BrownConnect+ alumni network</span></li>
+            </ul>
+          </article>
+          <article class="resource">
+            <h3>&gt; research</h3>
+            <ul>
+              <li><span data-site-link="researchOpenings" aria-disabled="true">faculty research opportunities</span></li>
+              <li><span data-site-link="researchGroups" aria-disabled="true">research groups + labs</span></li>
+              <li><span data-site-link="researchGuide" aria-disabled="true">how to get into research</span></li>
+              <li><span data-site-link="researchFunding" aria-disabled="true">UTRA research funding</span></li>
+              <li><span data-site-link="honorsGuide" aria-disabled="true">honors thesis guide</span></li>
+              <li><span data-site-link="thesisArchive" aria-disabled="true">past undergraduate theses</span></li>
+            </ul>
+          </article>
+          <article class="resource">
+            <h3>&gt; opportunities</h3>
+            <ul>
+              <li><span data-site-link="taApplications" aria-disabled="true">TA / UTA applications</span></li>
+              <li><span data-site-link="studentJobs" aria-disabled="true">jobs inside Brown CS</span></li>
+              <li><span data-site-link="researchSymposium" aria-disabled="true">research symposium</span></li>
+              <li><span data-site-link="studentGroups" aria-disabled="true">student groups</span></li>
+              <li><span data-site-link="roomsLabs" aria-disabled="true">CS rooms + labs</span></li>
+              <li><span data-site-link="undergradResources" aria-disabled="true">undergraduate resources</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+      <figure class="cit-scene">
+        <canvas class="city-backdrop" id="resourcesCity" aria-hidden="true"></canvas>
+        <img class="cit-building" src="assets/images/cit-pixel-twilight.png" width="1536" height="1024"
+          alt="Twilight-blue pixel art of Brown's CIT, with its glass entrance and brick wings against a distant city skyline."
+          loading="lazy" decoding="async">
+      </figure>
+      <div class="cit-clouds" aria-hidden="true"></div>
+      <button class="section-platform resource-lower" type="button" aria-label="Jump to Team" title="Jump to Team"></button>
+    </section>
+
+    <section class="section" id="team">
+      <canvas class="cloud-layer" id="teamClouds" aria-hidden="true"></canvas>
+      <canvas class="team-scene" id="teamScene" aria-label="Pixel art SciLi tower with a Tetris game playing across its windows" role="img"></canvas>
+      <div class="section-inner">
+        <span class="section-platform team-stop" aria-hidden="true"></span>
+        <div class="section-header">
+          <h2>Team</h2>
+          <p>26-27 executive board members</p>
+        </div>
+        <div data-member-gallery>
+          <div class="profiles" id="member-cards" aria-label="CS DUG members"></div>
+          <nav class="team-pagination" aria-label="Member pages">
+            <button class="team-page-button" type="button" data-page-previous aria-label="Previous member page" aria-controls="member-cards" title="Previous member page">
+              <svg class="team-page-arrow" viewBox="0 0 16 20" aria-hidden="true"><path d="M10 0h4v4h-4v4H6v4h4v4h4v4h-4v-4H6v-4H2V8h4V4h4z"/></svg>
+            </button>
+            <div class="team-page-numbers"></div>
+            <button class="team-page-button" type="button" data-page-next aria-label="Next member page" aria-controls="member-cards" title="Next member page">
+              <svg class="team-page-arrow" viewBox="0 0 16 20" aria-hidden="true"><path d="M2 0h4v4h4v4h4v4h-4v4H6v4H2v-4h4v-4h4V8H6V4H2z"/></svg>
+            </button>
+          </nav>
+          <p class="visually-hidden" data-page-status role="status" aria-live="polite" aria-atomic="true"></p>
+          <noscript><p>Enable JavaScript to view member cards, or <a data-site-link="email" href="mailto:csdug@brown.edu">email us</a>.</p></noscript>
+        </div>
+        <template id="member-card-template">
+          <article class="profile">
+            <div class="member-card">
+              <img class="member-card-art" src="assets/images/member-card.png" alt="" width="1182" height="862" draggable="false">
+              <span class="visually-hidden">CS DUG 26-27</span>
+              <div class="member-photo"></div>
+              <div class="member-details">
+                <div class="member-name-line"><h3 class="member-name"></h3><span class="member-pronouns"></span></div>
+                <p class="member-study"></p>
+                <p class="member-role"></p>
+              </div>
+            </div>
+          </article>
+        </template>
+        <script type="application/json" id="team-member-data">
+          [
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""},
+            {"name":"Name","pronouns":"pronouns","study":"major + year","role":"position","photo":""}
+          ]
+        </script>
+      </div>
+    </section>
+
+    <canvas class="team-water" id="teamWater" aria-hidden="true"></canvas>
+    <section class="section" id="contact">
+      <div class="section-inner">
+        <h2>FIND US ON</h2>
+        <div class="contact-links">
+          <span data-site-link="instagram" aria-disabled="true">INSTAGRAM</span>
+          <span data-site-link="discord" aria-disabled="true">DISCORD</span>
+          <a data-site-link="email" href="mailto:csdug@brown.edu">GMAIL</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Copyright Brown CS DUG 2026
+  </footer>
+
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/about-folders.js"></script>
+  <script src="assets/js/tetris-engine.js"></script>
+  <script src="assets/js/team-tetris.js"></script>
+  <script src="assets/js/team-members.js"></script>
+  <script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+    const scrollBear = document.querySelector(".scroll-bear");
+    const sections = [...document.querySelectorAll(".section")];
+    const folderMessages = AboutFolders.createFolderMessages(document);
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function setupHeroSticker(sticker) {
+      const reset = () => {
+        sticker.classList.remove("is-active");
+        ["--rotate-x", "--rotate-y", "--shift-x", "--shine-x", "--shine-y"].forEach(name => sticker.style.removeProperty(name));
+      };
+      sticker.addEventListener("pointerenter", () => sticker.classList.add("is-active"));
+      sticker.addEventListener("pointermove", event => {
+        if (prefersReduced || event.pointerType === "touch") return;
+        const box = sticker.getBoundingClientRect();
+        const x = Math.max(-1, Math.min(1, (event.clientX - box.left) / box.width * 2 - 1));
+        const y = Math.max(-1, Math.min(1, (event.clientY - box.top) / box.height * 2 - 1));
+        sticker.style.setProperty("--rotate-x", `${14 - y * 10}deg`);
+        sticker.style.setProperty("--rotate-y", `${-10 + x * 20}deg`);
+        sticker.style.setProperty("--shift-x", `${x * 3}px`);
+        sticker.style.setProperty("--shine-x", `${50 + x * 35}%`);
+        sticker.style.setProperty("--shine-y", `${50 + y * 35}%`);
+      });
+      sticker.addEventListener("pointerleave", reset);
+      sticker.addEventListener("pointercancel", reset);
+      sticker.addEventListener("focus", () => sticker.classList.add("is-active"));
+      sticker.addEventListener("blur", reset);
+      sticker.addEventListener("click", () => sticker.classList.add("is-active"));
+    }
+    setupHeroSticker(document.querySelector(".hero-title-sticker"));
+    const monoFont = getComputedStyle(document.body).getPropertyValue("--mono");
+    const bearSprites = {
+      standing: { src: "assets/images/bear-standing.png", crop: [1461, 541, 510, 812] },
+      jumping: { src: "assets/images/bear-jumping.png", crop: [1463, 525, 523, 909] }
+    };
+    function drawBearSprite(paint, sprite, x, y, width, height) {
+      paint.drawImage(sprite.image, ...sprite.crop, x, y, width, height);
+      if (sprite !== bearSprites.standing) return;
+      // Match the other eye's lower pixel before either renderer flips the bear.
+      const scaleX = width / sprite.crop[2], scaleY = height / sprite.crop[3];
+      paint.drawImage(sprite.image, 1665, 711, 34, 33,
+        x + (1801 - sprite.crop[0]) * scaleX, y + (711 - sprite.crop[1]) * scaleY,
+        34 * scaleX, 33 * scaleY);
+    }
+    Object.entries(bearSprites).forEach(([pose, sprite]) => {
+      sprite.image = new Image();
+      sprite.image.onload = () => {
+        const follower = scrollBear.querySelector(`.${pose}-sprite`);
+        const followerCtx = follower.getContext("2d");
+        followerCtx.imageSmoothingEnabled = false;
+        const scale = 176 / bearSprites.standing.crop[3];
+        const width = sprite.crop[2] * scale;
+        const height = sprite.crop[3] * scale;
+        drawBearSprite(followerCtx, sprite,
+          (follower.width - width) / 2, follower.height - height, width, height);
+      };
+      sprite.image.src = sprite.src;
+    });
+    const state = {
+      width: canvas.width,
+      height: canvas.height,
+      barWidth: 100,
+      bear: { x: 0, y: 0, w: 54, h: 80 },
+      facing: 1,
+      platforms: [],
+      current: 0,
+      mode: "intro",
+      sectionIndex: 0,
+      sectionBarIndex: 0,
+      travel: null,
+      scrollDriven: false,
+      scrollPosition: null,
+      scrollTarget: null,
+      scrollOrigin: 0,
+      scrollBias: 0,
+      scrollAnchor: null,
+      autoLeap: null,
+      autoIndex: 0,
+      autoDesired: 0,
+      camera: 0,
+      leap: null,
+      last: 0
+    };
+
+    function drawPixelSky(sky, stops, box = sky.parentElement.getBoundingClientRect(), options = {}) {
+      sky.width = Math.ceil(box.width / (options.pixelSize || 5));
+      sky.height = Math.ceil(box.height / (options.pixelSize || 5));
+      const skyCtx = sky.getContext("2d");
+      const lastColor = (options.colors || 32) - 1;
+      const palette = Array.from({ length: lastColor + 1 }, (_, i) => {
+        const position = i / lastColor;
+        const upper = stops.findIndex(stop => stop[0] >= position);
+        const a = stops[Math.max(0, upper - 1)];
+        const b = stops[upper];
+        const mix = a === b ? 0 : (position - a[0]) / (b[0] - a[0]);
+        return `rgb(${a[1].map((channel, j) => Math.round(channel + (b[1][j] - channel) * mix)).join(",")})`;
+      });
+      const dither = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
+      // Warped color boundaries and ordered dithering blend the sky on a coarse pixel grid.
+      for (let y = 0; y < sky.height; y++) {
+        for (let x = 0; x < sky.width; x++) {
+          const progress = y / (sky.height - 1);
+          const edgeFade = Math.sin(progress * Math.PI);
+          const ripple = (Math.sin(x * .11 + y * .09) * .013 +
+            Math.sin(x * .037 - y * .17) * .019 +
+            Math.sin(x * .31 + y * .23) * .004) * edgeFade * (options.ripple ?? 1);
+          const value = Math.max(0, Math.min(lastColor, (progress + ripple) * lastColor));
+          const low = Math.floor(value);
+          const threshold = (dither[y % 4][x % 4] + .5) / 16;
+          const color = low + (value - low > threshold ? 1 : 0);
+          skyCtx.fillStyle = palette[Math.min(lastColor, color)];
+          skyCtx.fillRect(x, y, 1, 1);
+        }
+      }
+    }
+
+    const eventArt = ["#b8a2bc", "#c6afc5", "#d7bfce", "#e6ced7"];
+
+    function eventMoonMetrics(sky) {
+      const narrow = sky.parentElement.clientWidth < 1180;
+      const radius = Math.min(narrow ? 22 : 32, sky.width * .095);
+      return {
+        x: Math.floor(sky.width * (narrow ? .72 : .855)),
+        y: Math.round((narrow ? 112 : 40) * sky.height / sky.parentElement.clientHeight) + Math.floor(radius),
+        radius
+      };
+    }
+
+    function drawSkyScene(sky, sunset) {
+      const paint = sky.getContext("2d");
+      const w = sky.width;
+      const h = sky.height;
+      let seed = sunset ? 82 : 41;
+      const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+      const stars = sunset ? ["#f1dcce", "#d9b7c3", "#bba2bf"] : ["#ffe4c9", "#efbbbf", "#d69ab7"];
+      for (let i = 0; i < Math.min(40, Math.floor(w * h / 1300)); i++) {
+        const x = Math.floor(random() * w);
+        const y = Math.floor(12 + random() * h * .72);
+        paint.fillStyle = stars[i % stars.length];
+        paint.fillRect(x, y, i % 7 === 0 ? 2 : 1, 1);
+      }
+
+      const pixelScale = sunset ? 2.5 : 1;
+      const moon = sunset ? eventMoonMetrics(sky) : null;
+      const moonX = sunset ? moon.x : Math.floor(w * .82);
+      const radius = sunset ? moon.radius :
+        Math.max(6 * pixelScale, Math.min(12 * pixelScale, w * .08, h * .065));
+      const moonY = sunset ? moon.y : Math.floor(h * (w < 120 ? .87 : .8));
+      const disk = (r, color) => {
+        paint.fillStyle = color;
+        for (let y = -Math.ceil(r); y <= r; y++) {
+          const halfWidth = Math.floor(Math.sqrt(Math.max(0, r * r - y * y)));
+          if (Math.abs(y) <= r) paint.fillRect(moonX - halfWidth, moonY + y, halfWidth * 2 + 1, 1);
+        }
+      };
+      if (sunset) {
+        const platform = document.querySelector(".moon-platform");
+        // Match the actual top row of the pixel disk, including non-integer radii.
+        const diskRadius = Math.floor(radius);
+        platform.style.left = `${(moonX - diskRadius) / w * 100}%`;
+        platform.style.top = `${(moonY - diskRadius) / h * 100}%`;
+        platform.style.width = `${(diskRadius * 2 + 1) / w * 100}%`;
+        platform.style.height = `${(diskRadius * 2 + 1) / h * 100}%`;
+      }
+      if (!sunset) disk(radius, "#fff3d7");
+      // Broad lunar maria use warped contours, with small terraces along their edges.
+      for (let y = -Math.ceil(radius); sunset && y <= radius; y++) {
+        for (let x = -Math.ceil(radius); x <= radius; x++) {
+          if (x * x + y * y > radius * radius) continue;
+          const u = Math.floor(x / 2) * 2 / radius, v = Math.floor(y / 2) * 2 / radius, r2 = u * u + v * v;
+          const warp = Math.sin(u * 17 + Math.sin(v * 11)) * .045 + Math.cos(v * 23 - u * 7) * .025;
+          const maria = Math.min(
+            Math.hypot((u + .29) / .39, (v + .42) / .52),
+            Math.hypot((u - .28) / .44, (v - .16) / .34),
+            Math.hypot((u + .03) / .34, (v - .63) / .49)
+          ) + warp * 4;
+          const shade = v * .52 - u * .25 + r2 * .36;
+          // Muted pink and lilac keep the moon in the soft dusk palette.
+          let color = eventArt[shade > .62 ? 1 : shade > .35 ? 2 : 3];
+          if (maria < .78) color = eventArt[shade > .38 ? 0 : 1];
+          else if (maria < 1.02) color = eventArt[2];
+          paint.globalAlpha = 1;
+          paint.fillStyle = color;
+          paint.fillRect(moonX + x, moonY + y, 1, 1);
+        }
+      }
+      paint.globalAlpha = 1;
+      if (sunset) return;
+
+      // Distant cloud banks are continuous, subdued layers, not moving foreground sprites.
+      const bankColors = sunset ? ["#76314f", "#8b3b55", "#9c485c"] : ["#e8a8b5", "#efb3b9", "#f4bbc0"];
+      for (let layer = 0; layer < 3; layer++) {
+        paint.globalAlpha = sunset ? .23 : .38;
+        paint.fillStyle = bankColors[layer];
+        for (let x = 0; x < w; x++) {
+          const ridge = Math.round(h * (.68 + layer * .055) +
+            Math.sin(x * .075 + layer) * h * .017 + Math.sin(x * .023 + layer * 2) * h * .025);
+          paint.fillRect(x, ridge, 1, h - ridge);
+        }
+      }
+      paint.globalAlpha = 1;
+
+    }
+
+    function campusMetrics(width, height) {
+      const scale = width / 480;
+      const scaleY = Math.min(scale, height * .0033);
+      const ground = Math.floor(height * (width < 320 ? .94 : .92));
+      const top = ground - 100 * scaleY;
+      return { scale, scaleY, ground, top, skyline: top - 33 * scaleY };
+    }
+
+    function campusSkylineTop(width, height) {
+      const pixelHeight = Math.ceil(height / 2);
+      return campusMetrics(Math.ceil(width / 2), pixelHeight).skyline * height / pixelHeight;
+    }
+
+    function drawCampus(paint, width, height) {
+      const { scale, scaleY, ground, top } = campusMetrics(width, height);
+      const colors = { brick: "#b8808d", stone: "#d0b0a9", trim: "#f1d6b9",
+        roof: "#968595", glass: "#80657e", copper: "#859f99", trees: "#ae96a6" };
+      const tints = new Map();
+      let building = { x: 0, y: 0, sx: 1, sy: 1 };
+      const rect = (x, y, w, h, color) => {
+        if (!tints.has(color)) {
+          const channels = [1, 3, 5].map(offset => parseInt(color.slice(offset, offset + 2), 16));
+          tints.set(color, `rgb(${channels.map((channel, i) => Math.round(channel * .78 + [238, 177, 171][i] * .22)).join(",")})`);
+        }
+        paint.fillStyle = tints.get(color);
+        paint.fillRect(Math.round((building.x + x * building.sx) * scale),
+          Math.round(top + (building.y + y * building.sy) * scaleY),
+          Math.max(1, Math.round(w * building.sx * scale)), Math.max(1, Math.round(h * building.sy * scaleY)));
+      };
+      const roof = (x, y, w, h, color) => {
+        for (let row = 0; row < h; row += 2) {
+          const inset = (1 - row / h) * w / 2;
+          rect(x + inset, y + row, w - inset * 2, 2, color);
+        }
+      };
+      const arch = (x, y, w, h, color) => {
+        rect(x + 2, y, w - 4, 2, color);
+        rect(x, y + 2, w, h - 2, color);
+      };
+      const window = (x, y, w = 5, h = 9) => {
+        rect(x - 1, y - 1, w + 2, h + 2, colors.trim);
+        rect(x, y, w, h, colors.glass);
+        rect(x, y + Math.floor(h / 2), w, 1, colors.stone);
+        if (w >= 5) rect(x + Math.floor(w / 2), y, 1, h, colors.stone);
+      };
+      const masonry = (x, y, w, h, color, brickWidth = 5) => {
+        for (let row = 0; row < h; row += 3) {
+          rect(x, y + row, w, .5, color);
+          for (let column = (row % 6 ? brickWidth / 2 : 0); column < w; column += brickWidth) {
+            rect(x + column, y + row, .5, 2, color);
+          }
+        }
+      };
+      const tree = (x, y, size, color) => {
+        rect(x - 1, y, 2, 100 - y, "#9d8797");
+        [[-8, 1, 15, 9], [-12, 7, 23, 11], [-8, 15, 19, 8], [-4, -3, 9, 8]].forEach(([dx, dy, w, h]) =>
+          rect(x + dx * size, y + dy * size, w * size, h * size, color));
+        rect(x - 6 * size, y + 5 * size, 8 * size, 4 * size, "#b1a0aa");
+      };
+
+      // The old generic city sits behind the landmarks, only a shade below the peach sky.
+      let seed = 57;
+      const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+      for (let layer = 0; layer < 2; layer++) {
+        let x = -8;
+        while (x < 490) {
+          const bw = 9 + Math.floor(random() * 15);
+          const bh = 28 + Math.floor(random() * 43);
+          const y = 100 - bh;
+          const color = layer === 0 ? "#dfa8b1" : "#d59ea9";
+          rect(x, y, bw, bh, color);
+          if (random() > .6) {
+            rect(x + 3, y - 4, bw - 6, 4, color);
+            rect(x + Math.floor(bw / 2), y - 9, 1, 5, color);
+          }
+          for (let wy = y + 4; wy < 98; wy += 6) {
+            for (let wx = x + 3; wx < x + bw - 2; wx += 5) {
+              if (random() > .3) rect(wx, wy, 2, 2, "#eab7b6");
+            }
+          }
+          x += bw + 2 + Math.floor(random() * 3);
+        }
+      }
+      [12, 146, 166, 310, 346, 452, 482].forEach((x, i) => tree(x, 62 + i % 3 * 5, 1.2, colors.trees));
+      [[-9, 40], [452, 40]].forEach(([x, w]) => {
+        rect(x, 72, w, 28, colors.brick);
+        masonry(x, 72, w, 28, "#c8939b");
+        roof(x - 3, 59, w + 6, 14, colors.roof);
+        rect(x - 2, 72, w + 4, 2, colors.trim);
+        for (let wx = x + 5; wx < x + w - 4; wx += 10) {
+          window(wx, 78, 5, 7);
+          window(wx, 90, 5, 7);
+        }
+      });
+
+      // The clock tower rises behind the foreground buildings.
+      building = { x: 76, y: -18, sx: 1, sy: 1.18 };
+      paint.save();
+      paint.globalAlpha = .84;
+      rect(245, 18, 25, 82, "#ad8794");
+      masonry(245, 32, 25, 68, "#c69da5", 4);
+      [247, 254, 263].forEach(x => rect(x, 34, 3, 64, "#927a8f"));
+      rect(243, 7, 29, 26, colors.stone);
+      rect(240, 4, 35, 3, colors.trim);
+      rect(245, -14, 25, 18, colors.stone);
+      arch(252, -11, 11, 15, colors.glass);
+      [246, 266].forEach(x => {
+        rect(x, -13, 3, 17, colors.trim);
+        rect(x - 1, 1, 5, 2, colors.trim);
+      });
+      rect(243, -17, 29, 3, colors.trim);
+      roof(245, -29, 25, 12, colors.copper);
+      rect(256, -33, 2, 5, colors.trim);
+      rect(249, -22, 2, 5, "#b0beb2");
+      rect(261, -22, 2, 5, "#72948e");
+      // Draw the dial in canvas pixels so the tower's vertical stretch cannot oval it.
+      const clockX = Math.round((building.x + 257 * building.sx) * scale);
+      const clockY = Math.round(top + (building.y + 20 * building.sy) * scaleY);
+      const clockRadius = Math.max(4, Math.round(10 * scale));
+      const clockPixel = (x, y, color) => {
+        paint.fillStyle = color;
+        paint.fillRect(clockX + x, clockY + y, 1, 1);
+      };
+      for (let y = -clockRadius - 1; y <= clockRadius + 1; y++) {
+        for (let x = -clockRadius - 1; x <= clockRadius + 1; x++) {
+          const distance = x * x + y * y;
+          if (distance > (clockRadius + 1) ** 2) continue;
+          const color = distance > clockRadius ** 2 ? "#f1d6b9" :
+            distance > (clockRadius - 1) ** 2 ? "#5f928d" :
+            distance > (clockRadius - 3) ** 2 ? "#80b2a5" : "#aecabb";
+          clockPixel(x, y, color);
+        }
+      }
+      for (let hour = 0; hour < 12; hour++) {
+        const angle = hour * Math.PI / 6;
+        clockPixel(Math.round(Math.sin(angle) * (clockRadius - 3)),
+          -Math.round(Math.cos(angle) * (clockRadius - 3)), "#557f7d");
+        if (hour % 3 === 0) clockPixel(Math.round(Math.sin(angle) * (clockRadius - 4)),
+          -Math.round(Math.cos(angle) * (clockRadius - 4)), "#557f7d");
+      }
+      for (let step = 1; step <= clockRadius - 2; step++) {
+        clockPixel(Math.round(step * .5), -step, "#f6e4c9");
+      }
+      for (let step = 1; step <= clockRadius - 4; step++) {
+        clockPixel(-step, -Math.round(step * .45), "#f6e4c9");
+      }
+      clockPixel(0, 0, "#6d777f");
+      rect(241, 32, 33, 3, colors.trim);
+      for (let x = 243; x < 273; x += 4) rect(x, 2, 2, 2, colors.glass);
+      paint.restore();
+
+      // Enlarge each foreground landmark around its ground-level anchor.
+      building = { x: 83 * (1 - 1.2), y: -14, sx: 1.2, sy: 1.14 };
+      // Sayles Hall: steep central roof, paired dormers, arched windows and doorway.
+      rect(35, 62, 96, 35, colors.stone);
+      roof(32, 43, 102, 20, colors.roof);
+      rect(65, 41, 36, 55, "#bea49e");
+      masonry(35, 63, 96, 34, "#c09e9c", 8);
+      masonry(65, 41, 36, 22, "#c09e9c", 7);
+      roof(62, 18, 42, 24, colors.roof);
+      for (let y = 26; y < 41; y += 4) {
+        const inset = (1 - (y - 18) / 24) * 21;
+        rect(62 + inset, y, 42 - inset * 2, .5, "#b3a0aa");
+      }
+      rect(63, 41, 40, 3, colors.trim);
+      [43, 110].forEach(x => {
+        rect(x, 47, 14, 14, colors.stone);
+        roof(x - 2, 38, 18, 10, colors.stone);
+        rect(x + 5, 48, 4, 11, colors.glass);
+      });
+      [41, 53, 72, 86, 107, 119].forEach(x => {
+        arch(x - 1, 64, 9, 15, colors.trim);
+        arch(x, 65, 7, 13, colors.glass);
+        rect(x + 3, 67, 1, 11, colors.stone);
+        rect(x, 72, 7, 1, colors.stone);
+      });
+      [72, 82, 92].forEach(x => arch(x, 46, 5, 12, colors.glass));
+      [40, 54, 110, 122].forEach(x => arch(x, 83, 6, 12, colors.glass));
+      rect(35, 79, 96, 2, colors.trim);
+      arch(73, 81, 20, 16, colors.trim);
+      arch(77, 84, 12, 13, colors.glass);
+      rect(82, 86, 1, 11, colors.stone);
+      rect(78, 86, 9, 1, colors.stone);
+      [36, 128].forEach(x => {
+        for (let y = 64; y < 97; y += 5) rect(x, y, 3, 2, colors.trim);
+      });
+      for (let x = 37; x < 131; x += 5) rect(x, 61, 2, 2, colors.trim);
+      rect(71, 97, 24, 2, colors.stone);
+      rect(68, 99, 30, 2, colors.trim);
+      rect(81, 15, 3, 5, colors.trim);
+      [48, 115].forEach(x => {
+        rect(x, 44, 3, 2, colors.glass);
+        rect(x - 1, 43, 5, 1, colors.trim);
+      });
+      [40, 54, 110, 122].forEach(x => {
+        rect(x + 2, 84, 1, 10, colors.stone);
+        rect(x, 89, 6, 1, colors.stone);
+        rect(x - 1, 95, 8, 1, colors.trim);
+      });
+      for (let x = 66; x < 101; x += 4) rect(x, 44, 2, 1, colors.glass);
+
+      // Faunce House anchors the center with its pediment, tall fanlight and red banners.
+      building = { x: 240 * (1 - 1.28), y: -78, sx: 1.28, sy: 1.78 };
+      rect(177, 65, 126, 32, colors.brick);
+      rect(204, 58, 72, 39, "#ba7a82");
+      masonry(177, 65, 126, 32, "#ce9a9f", 5);
+      masonry(204, 58, 72, 7, "#ce9a9f", 5);
+      roof(173, 53, 134, 13, colors.roof);
+      roof(200, 37, 80, 25, colors.trim);
+      roof(206, 42, 68, 20, colors.brick);
+      for (let i = 0; i < 8; i++) {
+        rect(207 + i * 4, 61 - i * 2.5, 2, 2, colors.trim);
+        rect(271 - i * 4, 61 - i * 2.5, 2, 2, colors.trim);
+      }
+      [188, 286].forEach(x => { rect(x, 48, 5, 14, colors.brick); rect(x - 1, 47, 7, 2, colors.stone); });
+      rect(177, 64, 126, 2, colors.trim);
+      arch(229, 58, 22, 26, colors.trim);
+      arch(232, 60, 16, 23, "#a4b8ba");
+      rect(239, 60, 2, 24, colors.trim);
+      rect(231, 67, 18, 2, colors.trim);
+      rect(232, 75, 16, 1, colors.trim);
+      [235, 244].forEach(x => rect(x, 69, 1, 14, colors.trim));
+      [[233, 64], [235, 62], [244, 62], [246, 64]].forEach(([x, y]) => rect(x, y, 1, 3, colors.trim));
+      rect(229, 67, 22, 1, colors.trim);
+      rect(239, 54, 3, 4, colors.trim);
+      [213, 265].forEach(x => {
+        rect(x, 65, 5, 22, "#934b61");
+        rect(x + 1, 69, 3, 4, colors.trim);
+        rect(x + 2, 68, 1, 6, "#e6c1b1");
+      });
+      [181, 193, 280, 293].forEach(x => window(x, 70, 5, 8));
+      [180, 205, 218, 258, 272, 294].forEach(x => window(x, 85, 5, 10));
+      [192, 282].forEach(x => { rect(x, 83, 8, 14, colors.trim); rect(x + 2, 86, 4, 11, colors.glass); });
+      rect(229, 86, 22, 12, colors.trim);
+      [231, 238, 245].forEach(x => rect(x, 87, 4, 10, colors.glass));
+      rect(224, 80, 32, 2, colors.glass);
+      for (let x = 225; x < 256; x += 4) rect(x, 81, 1, 4, colors.glass);
+      rect(224, 85, 32, 1, colors.glass);
+      rect(224, 98, 32, 2, colors.stone);
+      rect(218, 100, 44, 2, colors.trim);
+      rect(221, 99, 38, .5, "#b99a9f");
+      [225, 253].forEach(x => { rect(x, 97, 1, 5, colors.glass); rect(x - 2, 97, 4, .5, colors.glass); });
+      [202, 276].forEach(x => {
+        for (let y = 66; y < 96; y += 4) rect(x, y, 2, 2, colors.trim);
+      });
+      [225, 253].forEach(x => { rect(x, 69, 2, 9, colors.trim); rect(x - 1, 68, 4, 1, colors.stone); });
+      for (let x = 180; x < 303; x += 4) rect(x, 66, 2, 1, colors.stone);
+      [98, 99, 100].forEach(y => rect(220 - (y - 98) * 2, y, 40 + (y - 98) * 4, .5, "#aa8d98"));
+
+      // John Hay: two stone stories, paired pilasters and a tall central arched window.
+      building = { x: 333, y: 0, sx: 1, sy: 1 };
+      rect(2, 29, 96, 68, colors.stone);
+      masonry(3, 32, 94, 64, "#bda6a3", 10);
+      rect(2, 23, 96, 7, "#dcc2ae");
+      rect(1, 22, 98, 2, colors.trim);
+      rect(0, 29, 100, 3, colors.trim);
+      rect(2, 32, 96, 1, "#a99199");
+      for (let x = 4; x < 97; x += 4) rect(x, 32, 2, 2, colors.trim);
+      [14, 33, 66, 85].forEach(x => rect(x, 25, 1, 3, "#bda6a3"));
+      // Small raised parapet medallion and stepped cornice keep the roofline flat.
+      rect(44, 20, 12, 3, colors.stone);
+      rect(46, 18, 8, 2, colors.trim);
+      rect(44, 20, 2, 3, colors.trim);
+      rect(54, 20, 2, 3, colors.trim);
+      rect(47, 20, 6, 3, "#b29d9f");
+      [5, 19, 33, 64, 78, 92].forEach(x => {
+        rect(x, 36, 3, 57, "#ddc4b2");
+        rect(x + 3, 36, 1, 57, "#b39c9f");
+        rect(x - 1, 34, 6, 2, colors.trim);
+        rect(x - 2, 35, 2, 2, colors.stone);
+        rect(x + 4, 35, 2, 2, colors.stone);
+        rect(x - 1, 93, 5, 3, colors.trim);
+      });
+      [10, 24, 69, 83].forEach(x => {
+        window(x, 39, 7, 16);
+        window(x, 69, 7, 23);
+        [44, 49, 74, 80, 86].forEach(y => rect(x, y, 7, 1, colors.stone));
+        rect(x - 1, 56, 9, 1, "#b39c9f");
+        rect(x + 2, 60, 3, 4, "#b9a09f");
+        rect(x + 2, 60, 3, 1, colors.trim);
+      });
+      rect(46, 35, 8, 2, colors.trim);
+      rect(44, 37, 12, 2, colors.trim);
+      rect(42, 39, 16, 27, colors.trim);
+      rect(47, 37, 6, 2, colors.glass);
+      rect(45, 39, 10, 2, colors.glass);
+      rect(44, 41, 12, 23, colors.glass);
+      rect(49, 38, 1, 26, colors.stone);
+      [45, 51, 57].forEach(y => rect(44, y, 12, 1, colors.stone));
+      [47, 52].forEach(x => rect(x, 43, 1, 21, colors.stone));
+      rect(49, 33, 2, 4, "#ddc4b2");
+      [40, 59].forEach(x => rect(x, 38, 2, 5, "#b39c9f"));
+      rect(38, 67, 24, 3, colors.trim);
+      roof(40, 63, 20, 4, colors.stone);
+      rect(40, 70, 20, 4, "#b39c9f");
+      rect(43, 71, 14, 1, colors.trim);
+      rect(40, 74, 20, 23, colors.trim);
+      rect(43, 76, 14, 21, "#765e71");
+      rect(45, 77, 10, 4, colors.glass);
+      rect(49, 81, 1, 15, colors.stone);
+      [45, 51].forEach(x => rect(x, 84, 3, 9, "#8d6e7c"));
+      rect(1, 97, 98, 2, colors.stone);
+      rect(37, 97, 26, 1, colors.trim);
+      rect(35, 98, 30, 1, "#b39c9f");
+      rect(33, 99, 34, 2, colors.trim);
+      building = { x: 0, y: 0, sx: 1, sy: 1 };
+      tree(151, 77, .8, "#80858f");
+      tree(322, 69, .85, "#858e99");
+      tree(349, 74, .72, "#7b8494");
+      tree(462, 78, .9, "#80858f");
+
+      const horizon = Math.round(ground + 3 * scaleY);
+      const reflection = document.createElement("canvas");
+      reflection.width = width;
+      reflection.height = horizon;
+      reflection.getContext("2d").drawImage(paint.canvas, 0, 0);
+      paint.save();
+      // Broken reflected rows fade into the underlying sky instead of a separate solid water band.
+      for (let y = horizon; y < height; y++) {
+        const depth = y - horizon;
+        const fade = 1 - depth / Math.max(1, height - horizon);
+        const sourceY = Math.max(0, horizon - 1 - depth * 2);
+        paint.globalAlpha = .24 * fade * fade;
+        const ripple = Math.round(Math.sin(depth * .7) * 3);
+        if (depth % 5 !== 3) paint.drawImage(reflection, 0, sourceY, width, 1, ripple, y, width, 1);
+      }
+      paint.restore();
+    }
+
+    const cloudScenes = [];
+    let cloudTime = 0;
+    const duskCloud = new Image();
+    duskCloud.onload = drawSkies;
+    duskCloud.src = "assets/images/dusk-cloud-bank.png";
+
+    function drawEventAtmosphere(sky, foreground = false) {
+      const paint = sky.getContext("2d"), w = sky.width, h = sky.height;
+      if (!duskCloud.complete || !duskCloud.naturalWidth) return;
+      paint.imageSmoothingEnabled = false;
+      const bank = (left, top, width, opacity, depth = 1, crop = [0, 0, 1, 1]) => {
+        const [sx, sy, sw, sh] = crop;
+        paint.globalAlpha = opacity;
+        paint.drawImage(duskCloud,
+          Math.round(sx * duskCloud.naturalWidth), Math.round(sy * duskCloud.naturalHeight),
+          Math.round(sw * duskCloud.naturalWidth), Math.round(sh * duskCloud.naturalHeight),
+          Math.round(left), Math.round(top), Math.round(width),
+          Math.round(width * duskCloud.naturalHeight * sh / (duskCloud.naturalWidth * sw) * depth));
+      };
+      const span = Math.max(w, 360);
+      if (foreground) {
+        const moon = eventMoonMetrics(sky);
+        // A wide veil belongs to the sky, crossing only the moon's lower half.
+        bank(w - span * .63, moon.y + moon.radius * .18, span * .85, .16, .58);
+      } else {
+        // Small, faint layers recede; larger, warmer banks frame the content.
+        bank(-span * .18, -h * .025, span * .80, .20, .50);
+        bank(w - span * .60, h * .015, span * .78, .23, .52);
+        bank(-span * .30, h * .055, span * .80, .32, .72, [0, .08, .74, .86]);
+        bank(w - span * .46, h * .10, span * .73, .35, .72, [.25, .10, .75, .84]);
+        bank(w * .13, h * .16, span * .61, .17, .46);
+        bank(-span * .51, h * .23, span * 1.05, .58);
+        bank(w - span * .38, h * .39, span * .96, .66);
+        bank(-span * .22, h * .66, span * 1.13, .44);
+      }
+      paint.globalAlpha = 1;
+    }
+
+    function createCloudSprite(variant, sunset, palette) {
+      const sprite = document.createElement("canvas");
+      sprite.width = 36;
+      sprite.height = 15;
+      const paint = sprite.getContext("2d");
+      const colors = palette || (sunset ? ["#a48da5", "#c49da9", "#dfb0b3"] : ["#dfa9c0", "#f8d6d1", "#fff4df"]);
+      const puffs = variant === 0 ? [[9, 8, 5, 3], [15, 6, 5, 5], [23, 8, 6, 3], [29, 10, 4, 2]] :
+        variant === 1 ? [[7, 9, 4, 2], [12, 7, 4, 4], [21, 8, 5, 3], [28, 7, 4, 4]] :
+          [[7, 9, 4, 2], [13, 8, 5, 3], [20, 5, 4, 5], [26, 9, 5, 2]];
+      for (let y = 0; y < 14; y++) {
+        for (let x = 0; x < 36; x++) {
+          const inCloud = (y >= 10 && y <= 11 && x >= 3 && x <= 32) ||
+            puffs.some(([cx, cy, rx, ry]) => ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 <= 1);
+          if (!inCloud) continue;
+          const shadow = y > 9 || puffs.some(([cx, cy]) => x > cx && x < cx + 3 && y > cy - 1);
+          paint.fillStyle = colors[y >= 11 ? 0 : shadow ? 1 : 2];
+          paint.fillRect(x, y, 1, 1);
+        }
+      }
+      return sprite;
+    }
+
+    function createCloudLayout(width, height, widths, sunset, pixelSize) {
+      const lanes = [[], [], []];
+      widths.forEach((cloudWidth, index) => lanes[index % lanes.length].push({ width: cloudWidth, index }));
+      const bob = sunset ? 0 : 14 / pixelSize;
+      const stagger = 32 / pixelSize;
+      const laneHeights = lanes.map(lane => Math.max(...lane.map(cloud => cloud.width * 15 / 36)) + bob * 2 + stagger);
+      const top = Math.max(64 / pixelSize, height * .08);
+      const gap = Math.max(24 / pixelSize, (height * .78 - top - laneHeights.reduce((sum, value) => sum + value, 0)) / 2);
+      const clouds = [];
+      let laneTop = top;
+      lanes.forEach((lane, laneIndex) => {
+        const maxWidth = Math.max(...lane.map(cloud => cloud.width));
+        const loopWidth = Math.max(width + maxWidth + 32 / pixelSize, lane.length * (maxWidth + 32 / pixelSize));
+        lane.forEach((cloud, slot) => clouds.push({
+          ...cloud, y: laneTop + bob + slot % 3 * stagger / 2, loopWidth, wrapPadding: maxWidth,
+          offset: (slot / lane.length + [.13, .47, .28][laneIndex]) * loopWidth,
+          speed: (sunset ? 4 + laneIndex : 12 + laneIndex * 3) / pixelSize,
+          bob: sunset ? 0 : (8 + cloud.index % 4 * 2) / pixelSize,
+          phase: cloud.index * 2.4, period: 9 + cloud.index % 5 * 1.7,
+          swayPhase: laneIndex * 1.8, sway: sunset ? 0 : 6 / pixelSize
+        }));
+        laneTop += laneHeights[laneIndex] + gap;
+      });
+      return clouds;
+    }
+
+    function cloudPosition(cloud, time, reduced) {
+      const wave = time * Math.PI * 2 / cloud.period + cloud.phase;
+      // Shared horizontal motion within each lane prevents overtaking, including at wraparound.
+      const sway = reduced ? 0 : Math.sin(time * .25 + cloud.swayPhase) * cloud.sway;
+      const bob = reduced ? 0 : Math.sin(wave) * cloud.bob;
+      return {
+        x: Math.round((cloud.offset + time * cloud.speed + sway) % cloud.loopWidth - cloud.wrapPadding),
+        y: Math.round(cloud.y + bob)
+      };
+    }
+
+    function createStars(width, height, colors, seed) {
+      const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+      const stars = [];
+      // Jittered cells keep sparkles evenly scattered instead of clustering.
+      for (let y = 24; y < height - 24; y += 116) {
+        for (let x = 16; x < width - 16; x += 128) {
+          stars.push({ x: Math.floor(Math.min(width - 12, x + random() * 96)),
+            y: Math.floor(Math.min(height - 12, y + random() * 80)),
+            size: random() > .75 ? 3 : 2, cross: random() > .82,
+            phase: random() * Math.PI * 2, period: 4 + random() * 5,
+            color: colors[Math.floor(random() * colors.length)] });
+        }
+      }
+      return stars;
+    }
+
+    function drawFolders() {
+      const palettes = {
+        yellow: ["#a48c53", "#c7ae6c", "#f7edce", "#eee0ae", "#dfc781", "#cbb071"],
+        green: ["#687953", "#96aa74", "#edf1d5", "#d4dfb6", "#b6c990", "#9daf7d"],
+        red: ["#976173", "#b97d8c", "#f3dedb", "#e7b8bd", "#d599a5", "#bd8092"]
+      };
+      document.querySelectorAll(".folder-icon").forEach(folder => {
+        const paint = folder.getContext("2d");
+        const colors = palettes[folder.dataset.color];
+        const rect = (x, y, w, h, color) => { paint.fillStyle = color; paint.fillRect(x, y, w, h); };
+        rect(7, 87, 107, 3, "#41364e");
+        rect(7, 7, 36, 4, colors[0]);
+        rect(4, 11, 44, 8, colors[0]);
+        rect(7, 10, 34, 5, colors[1]);
+        rect(4, 18, 112, 65, colors[0]);
+        rect(7, 17, 106, 62, colors[1]);
+        rect(10, 21, 100, 9, "#f7f4e8");
+        rect(14, 19, 93, 2, colors[2]);
+        rect(5, 25, 110, 61, colors[0]);
+        rect(2, 28, 116, 54, colors[0]);
+        rect(6, 25, 108, 4, colors[2]);
+        rect(5, 29, 110, 12, colors[3]);
+        rect(5, 41, 110, 25, colors[4]);
+        rect(5, 66, 110, 16, colors[5]);
+        rect(8, 82, 104, 3, colors[5]);
+        rect(5, 30, 2, 49, colors[2]);
+        rect(113, 30, 2, 49, colors[1]);
+      });
+    }
+
+    function createStarSprite(color) {
+      const sprite = document.createElement("canvas");
+      sprite.width = 11; sprite.height = 11;
+      const paint = sprite.getContext("2d");
+      paint.fillStyle = color;
+      ["00000100000", "00001110000", "00001110000", "11111111111",
+        "01111111110", "00111111100", "00011111000", "00111111100",
+        "00111011100", "01100000110", "01000000010"].forEach((row, y) => {
+        [...row].forEach((pixel, x) => { if (pixel === "1") paint.fillRect(x, y, 1, 1); });
+      });
+      return sprite;
+    }
+
+    const aboutStatue = new Image();
+    aboutStatue.onload = drawAboutScene;
+    aboutStatue.src = "assets/images/brown-bear-statue-indigo.png";
+
+    function dissolveSceneBottom(paint, width, height, start, end) {
+      paint.globalCompositeOperation = "destination-out";
+      for (let y = Math.floor(start); y < height; y++) {
+        const progress = Math.max(0, Math.min(1, (y - start) / (end - start)));
+        paint.globalAlpha = progress * progress * (3 - 2 * progress);
+        paint.fillRect(0, y, width, 1);
+      }
+      paint.globalAlpha = 1;
+      paint.globalCompositeOperation = "source-over";
+    }
+
+    function drawAboutScene() {
+      const sky = document.getElementById("aboutForest");
+      const box = sky.parentElement.getBoundingClientRect();
+      sky.width = Math.ceil(box.width / 3);
+      sky.height = Math.ceil((box.height + 120) / 3);
+      const paint = sky.getContext("2d"), w = sky.width, h = box.height / 3;
+      paint.imageSmoothingEnabled = false;
+      let seed = 824;
+      const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+      // Overlapping billows form continuous banks; their thin lower wisps fade into the sky.
+      ["#8183b9", "#747caf", "#65719f"].forEach((color, band) => {
+        const puffs = Array.from({ length: 11 }, (_, i) => ({
+          x: w * (i / 10) + (random() - .5) * 18,
+          radius: 15 + random() * 32, height: 7 + random() * 17
+        }));
+        const baseline = h * (.37 + band * .12);
+        paint.fillStyle = color;
+        for (let x = 0; x < w; x++) {
+          const billow = Math.max(...puffs.map(puff => {
+            const dx = (x - puff.x) / puff.radius;
+            return Math.abs(dx) < 1 ? Math.sqrt(1 - dx * dx) * puff.height : 0;
+          }));
+          const top = Math.floor(baseline - billow + Math.sin(x * .43 + band) * 1.2);
+          const bottom = Math.floor(baseline + 7 + Math.sin(x * .05 + band) * 5);
+          for (let y = top; y < bottom; y++) {
+            const fade = Math.min(1, (bottom - y) / 10);
+            paint.globalAlpha = .36 * fade;
+            if (fade > .45 || (x + y) % 3 === 0) paint.fillRect(x, y, 1, 1);
+          }
+        }
+      });
+      paint.globalAlpha = 1;
+      // Filled terrain under overlapping canopies makes each depth plane one unbroken forest.
+      ["#55568d", "#46497c", "#383d6a", "#2d335d"].forEach((color, layer) => {
+        paint.fillStyle = color;
+        const groundAt = x => Math.floor(h * (.60 + layer * .105) +
+          Math.sin(x / w * Math.PI * 3 + layer) * h * .032);
+        for (let x = 0; x < w; x++) {
+          const ground = groundAt(x);
+          paint.fillRect(x, ground, 1, sky.height - ground);
+        }
+        for (let x = -18; x < w + 24; x += 10 + Math.floor(random() * 12)) {
+          const base = groundAt(x) + 8;
+          const height = Math.floor(18 + random() * (24 + layer * 9));
+          const crownWidth = 9 + layer * 3 + random() * 5;
+          const lean = (random() - .5) * 5;
+          paint.fillStyle = color;
+          paint.fillRect(x, base - height - 1, 1 + Math.floor(layer / 2), height + 1);
+          for (let y = 2; y < height; y++) {
+            const branch = (y % 7) / 7;
+            const spread = Math.floor(y / height * crownWidth * (.58 + branch * .42));
+            const trunk = Math.floor(x + lean * (1 - y / height));
+            const edge = y % 7 === 5 ? 2 : 0;
+            paint.fillRect(trunk - spread - edge, base - height + y, spread * 2 + edge + 1, 1);
+            if (y % 7 === 5 && layer > 0) {
+              paint.fillStyle = ["#55568d", "#4b4e81", "#3d426f", "#323862"][layer];
+              paint.fillRect(trunk - spread, base - height + y, Math.max(1, spread - 1), 1);
+              paint.fillStyle = color;
+            }
+          }
+        }
+      });
+      paint.globalAlpha = 1;
+
+      if (aboutStatue.complete && aboutStatue.naturalWidth) {
+        const statueHeight = Math.min(h * .90, box.width < 700 ? w * 1.65 : w * .74, 360);
+        const statueWidth = statueHeight * aboutStatue.naturalWidth / aboutStatue.naturalHeight;
+        const statue = document.createElement("canvas");
+        statue.width = Math.round(statueWidth);
+        statue.height = Math.round(statueHeight);
+        const stone = statue.getContext("2d");
+        stone.imageSmoothingEnabled = false;
+        stone.drawImage(aboutStatue, 0, 0, statue.width, statue.height);
+        dissolveSceneBottom(stone, statue.width, statue.height, statue.height * .79, statue.height * .97);
+        // Preserve the reference proportions; the asset already faces right.
+        paint.drawImage(statue, Math.floor(w * (box.width < 700 ? -.12 : -.015)), Math.floor(h * .955 - statueHeight));
+      }
+      // Finish the dissolve beyond the section boundary, with no clipped pedestal edge.
+      dissolveSceneBottom(paint, w, sky.height, h * .76, h + 28);
+    }
+
+    function createHomeCloudLayout(width, height) {
+      const widths = width < 640 ? [136, 58, 100, 76, 118, 46] :
+        [220, 84, 154, 62, 184, 110, 138, 54, 96, 72, 128, 48];
+      const ceiling = 64;
+      const floor = campusSkylineTop(width, height) - 32;
+      const clouds = createCloudLayout(width, floor, widths, false, 1);
+      const bottom = Math.max(...clouds.map(cloud => cloud.y + cloud.bob + cloud.width * 15 / 36));
+      const fit = Math.min(1, (floor - ceiling - 2) / (bottom - ceiling));
+      // Fit the complete bobbing envelopes above the tallest roof, preserving lane separation.
+      return clouds.map(cloud => ({ ...cloud, width: cloud.width * fit,
+        y: ceiling + (cloud.y - ceiling) * fit, bob: cloud.bob * fit }));
+    }
+
+    function setupClouds(id, sunset, night) {
+      const layer = document.getElementById(id);
+      const box = layer.parentElement.getBoundingClientRect();
+      const pixelSize = sunset ? 2 : 1;
+      layer.width = Math.ceil(box.width / pixelSize);
+      layer.height = Math.ceil(box.height / pixelSize);
+      const mobile = box.width < 640;
+      const widths = night ? (mobile ? [112, 136, 98] : [178, 136, 202, 156, 168, 126]) :
+        sunset ? (mobile ? [112, 136, 98] : [178, 136, 202, 156, 168]) :
+        (mobile ? [112, 136, 94, 118, 98] : [178, 136, 202, 150, 168, 126, 156, 112, 100]);
+      const eventCloud = [{ index: 0, width: (mobile ? 108 : 156) / pixelSize,
+        y: 16 / pixelSize, offset: layer.width * .3, speed: 9 / pixelSize,
+        loopWidth: layer.width + 190 / pixelSize, wrapPadding: 170 / pixelSize,
+        bob: 0, phase: 0, period: 12, sway: 0, swayPhase: 0 }];
+      cloudScenes.push({ layer, paint: layer.getContext("2d"),
+        shootingStars: Boolean(night?.shootingStars),
+        stars: night ? createStars(layer.width, layer.height, night.stars, night.seed)
+          .map((star, index) => ({ ...star,
+            sprite: night.literalStars && index % 5 === 0 ? createStarSprite(star.color) : null })) : [],
+        clouds: (night?.starsOnly ? [] : sunset ? eventCloud : id === "homeClouds" ? createHomeCloudLayout(box.width, box.height) :
+          createCloudLayout(layer.width, layer.height, widths.map(width => width / pixelSize), sunset, pixelSize))
+          .map(cloud => ({ ...cloud, opacity: sunset ? .88 : 1, sprite: createCloudSprite(cloud.index % 3, sunset,
+            sunset ? ["#b28ba6", "#dfb8c5", "#f3ddd6"] : night?.clouds) })) });
+    }
+
+    function drawShootingStars(paint, width, height, time) {
+      if (prefersReduced) return;
+      const cycle = Math.floor(time / 8.8);
+      const age = time % 8.8 - 1.4;
+      const duration = 2.3;
+      if (age < 0 || age > duration) return;
+      const t = age / duration;
+      const travel = Math.min(width * .38, 380);
+      const x = width * (.12 + (cycle % 3) * .19) + travel * t;
+      const y = height * (.075 + (cycle % 2) * .04) + travel * .28 * t;
+      const fade = Math.sin(Math.PI * t) ** .8;
+      const tail = Math.min(66, age * 70);
+      // A small moving point leads a fine tapered trail, with no oversized flashing head.
+      for (let distance = tail; distance >= 0; distance -= 2) {
+        paint.globalAlpha = fade * (1 - distance / Math.max(1, tail)) ** 2 * .55;
+        paint.fillStyle = "#d2d7ef";
+        paint.fillRect(Math.round(x - distance), Math.round(y - distance * .28), 2, 1);
+      }
+      paint.globalAlpha = fade * .85;
+      paint.fillStyle = "#f0edf3";
+      paint.fillRect(Math.round(x), Math.round(y), 2, 2);
+      paint.globalAlpha = 1;
+    }
+
+    function clearStarsBehindContent(scene) {
+      const bounds = scene.layer.getBoundingClientRect();
+      const scaleX = scene.layer.width / bounds.width, scaleY = scene.layer.height / bounds.height;
+      scene.layer.parentElement.querySelectorAll(".section-header, .folder-platform, .folder-message:not([hidden])").forEach(element => {
+        const box = element.getBoundingClientRect();
+        const gap = 14;
+        scene.paint.clearRect((box.left - bounds.left - gap) * scaleX,
+          (box.top - bounds.top - gap) * scaleY, (box.width + gap * 2) * scaleX, (box.height + gap * 2) * scaleY);
+      });
+    }
+
+    function drawFloatingClouds() {
+      for (const scene of cloudScenes) {
+        const { layer, paint, clouds } = scene;
+        if (prefersReduced && scene.drawn) continue;
+        const rect = layer.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
+        paint.clearRect(0, 0, layer.width, layer.height);
+        paint.imageSmoothingEnabled = false;
+        for (const star of scene.stars) {
+          const pulse = prefersReduced ? .55 : .5 + .5 * Math.sin(cloudTime * Math.PI * 2 / star.period + star.phase);
+          paint.globalAlpha = scene.shootingStars ? .18 + pulse * .38 : .25 + pulse * .55;
+          paint.fillStyle = star.color;
+          if (star.sprite) {
+            const size = 7;
+            paint.globalAlpha = .25 + pulse * .45;
+            paint.drawImage(star.sprite, star.x - Math.floor(size / 2), star.y - Math.floor(size / 2), size, size);
+            // Brief detached rays make the five-point silhouettes visibly sparkle.
+            if (pulse > .94) {
+              const reach = Math.ceil(size / 2) + 4;
+              paint.globalAlpha = (pulse - .78) / .22 * .65;
+              paint.fillRect(star.x - 1, star.y - reach - 3, 2, 3);
+              paint.fillRect(star.x - 1, star.y + reach, 2, 3);
+              paint.fillRect(star.x - reach - 3, star.y - 1, 3, 2);
+              paint.fillRect(star.x + reach, star.y - 1, 3, 2);
+            }
+            continue;
+          }
+          paint.fillRect(star.x, star.y, star.size, star.size);
+          if (star.cross) {
+            paint.globalAlpha *= .3 + pulse * .5;
+            paint.fillRect(star.x - star.size, star.y, star.size * 3, star.size);
+            paint.fillRect(star.x, star.y - star.size, star.size, star.size * 3);
+          }
+        }
+        paint.globalAlpha = 1;
+        if (scene.shootingStars) drawShootingStars(paint, layer.width, layer.height, cloudTime);
+        if (scene.shootingStars) clearStarsBehindContent(scene);
+        for (const cloud of clouds) {
+          const { x, y } = cloudPosition(cloud, cloudTime, prefersReduced);
+          paint.globalAlpha = cloud.opacity;
+          // Move pixel-art sprites on a finer grid so their outlines stay crisp without four-pixel jumps.
+          paint.drawImage(cloud.sprite, x, y,
+            cloud.width, cloud.width * cloud.sprite.height / cloud.sprite.width);
+        }
+        paint.globalAlpha = 1;
+        scene.drawn = true;
+      }
+    }
+
+    function blendSkyBoundary(sky, atTop, boundary = [139, 78, 113], depthPx = atTop ? 160 : 100) {
+      const paint = sky.getContext("2d");
+      const pixels = paint.getImageData(0, 0, sky.width, sky.height);
+      const depth = Math.min(sky.height, Math.ceil(depthPx * sky.height / sky.getBoundingClientRect().height));
+      const dither = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
+      // Both skies meet at one color; quantized tint preserves their pixel texture.
+      for (let row = 0; row < depth; row++) {
+        const y = atTop ? row : sky.height - 1 - row;
+        const progress = 1 - row / (depth - 1);
+        const t = progress * progress * (3 - 2 * progress);
+        for (let x = 0; x < sky.width; x++) {
+          const value = t * 32;
+          const mix = Math.min(32, Math.floor(value) +
+            (value % 1 > (dither[y % 4][x % 4] + .5) / 16 ? 1 : 0)) / 32;
+          const offset = (y * sky.width + x) * 4;
+          for (let channel = 0; channel < 3; channel++) {
+            pixels.data[offset + channel] = Math.round(pixels.data[offset + channel] * (1 - mix) + boundary[channel] * mix);
+          }
+        }
+      }
+      paint.putImageData(pixels, 0, 0);
+    }
+
+    const cityScene = { layer: document.getElementById("resourcesCity"), windows: [], lastDraw: -Infinity };
+
+    function setupCityBackdrop() {
+      const { layer } = cityScene;
+      const box = layer.getBoundingClientRect();
+      layer.width = Math.ceil(box.width / 3);
+      layer.height = Math.ceil(box.height / 3);
+      cityScene.base = document.createElement("canvas");
+      cityScene.base.width = layer.width;
+      cityScene.base.height = layer.height;
+      const paint = cityScene.base.getContext("2d");
+      const w = layer.width, h = layer.height;
+      const building = layer.parentElement.querySelector(".cit-building").getBoundingClientRect();
+      // The sprite's front step sits 6% above its image edge. Share that horizon.
+      const groundPx = building.bottom - box.top - building.height * .06;
+      layer.parentElement.style.setProperty("--cit-ground", `${groundPx}px`);
+      layer.parentElement.style.setProperty("--cit-fade", `${Math.min(150, building.height * .3)}px`);
+      const ground = Math.floor(groundPx * h / box.height);
+      const buildingHeight = building.height * h / box.height;
+      let seed = 593;
+      const random = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; };
+      cityScene.windows = [];
+      // Opaque near silhouettes cover the far windows, preserving the skyline's depth.
+      for (let depth = 0; depth < 2; depth++) {
+        const baseline = ground - (depth ? 0 : 2);
+        for (let x = -12; x < w; ) {
+          const width = 12 + Math.floor(random() * 18);
+          const height = Math.round(buildingHeight * (.22 + random() * (depth ? .16 : .31)));
+          const y = baseline - height;
+          paint.fillStyle = depth ? "#596a88" : "#667692";
+          paint.fillRect(x, y, width, baseline - y);
+          paint.fillStyle = depth ? "#687997" : "#7a89a3";
+          paint.fillRect(x, y, width, 2);
+          paint.fillRect(x + width - 3, y + 2, 3, height - 2);
+          if (random() > .45) {
+            paint.fillRect(x + 3, y - 3, Math.max(4, width - 10), 3);
+            paint.fillRect(x + Math.floor(width / 2), y - 7, 1, 4);
+          }
+          if (depth) cityScene.windows = cityScene.windows.filter(light =>
+            light.x + light.width <= x || light.x >= x + width || light.y + 2 <= y);
+          for (let row = y + 6; row < baseline - 4; row += 6) {
+            for (let col = x + 4; col < x + width - 4; col += 5) {
+              paint.fillStyle = depth ? "#667795" : "#7887a0";
+              paint.fillRect(col, row, 2, 2);
+              if (random() > .66) cityScene.windows.push({
+                x: col, y: row, width: 2,
+                color: random() > .7 ? "#d5cdbd" : "#c4d1e3",
+                phase: random() * Math.PI * 2, period: 8 + random() * 12,
+                strength: depth ? .55 : .3
+              });
+            }
+          }
+          x += width + 2 + Math.floor(random() * 5);
+        }
+      }
+      cityScene.lastDraw = -Infinity;
+      drawCityWindows();
+    }
+
+    function drawCityWindows() {
+      if (!cityScene.base || (prefersReduced && cityScene.lastDraw !== -Infinity)) return;
+      if (cloudTime - cityScene.lastDraw < 1 / 15) return;
+      const box = cityScene.layer.getBoundingClientRect();
+      if (box.bottom < 0 || box.top > innerHeight) return;
+      const paint = cityScene.layer.getContext("2d");
+      paint.clearRect(0, 0, cityScene.layer.width, cityScene.layer.height);
+      paint.drawImage(cityScene.base, 0, 0);
+      for (const light of cityScene.windows) {
+        const pulse = prefersReduced ? .5 : .5 + .5 * Math.sin(cloudTime * Math.PI * 2 / light.period + light.phase);
+        paint.globalAlpha = light.strength * (.4 + .6 * pulse);
+        paint.fillStyle = light.color;
+        paint.fillRect(light.x, light.y, light.width, 2);
+      }
+      paint.globalAlpha = 1;
+      cityScene.lastDraw = cloudTime;
+    }
+
+    const teamScene = { layer: document.getElementById("teamScene"), lastDraw: -Infinity };
+    const tetrisColors = {
+      IShape: "#92bfca", OShape: "#d9ca99", TShape: "#b4a4cc",
+      SShape: "#a1c6b1", ZShape: "#d0a0b6", LShape: "#d8b094", JShape: "#98b1d1"
+    };
+
+    // Scanline fills keep the projected masonry and window lights on one pixel grid.
+    function fillTeamPolygon(paint, points, color) {
+      paint.fillStyle = color;
+      const top = Math.floor(Math.min(...points.map(point => point[1])));
+      const bottom = Math.ceil(Math.max(...points.map(point => point[1])));
+      for (let y = top; y < bottom; y++) {
+        const scan = y + .5, crossings = [];
+        points.forEach(([ax, ay], index) => {
+          const [bx, by] = points[(index + 1) % points.length];
+          if ((ay <= scan && by > scan) || (by <= scan && ay > scan)) {
+            crossings.push(ax + (scan - ay) * (bx - ax) / (by - ay));
+          }
+        });
+        crossings.sort((a, b) => a - b);
+        for (let edge = 0; edge + 1 < crossings.length; edge += 2) {
+          const left = Math.ceil(crossings[edge] - .5);
+          const right = Math.ceil(crossings[edge + 1] - .5);
+          paint.fillRect(left, y, right - left, 1);
+        }
+      }
+    }
+
+    function drawTeamBackdrop(paint, w, h, ground, towerHeight, compact) {
+      let seed = 8142;
+      const random = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; };
+      const rect = (x, y, width, height, color) => {
+        paint.fillStyle = color;
+        paint.fillRect(Math.round(x), Math.round(y), Math.max(1, Math.round(width)), Math.max(1, Math.round(height)));
+      };
+      const span = Math.min(towerHeight * 1.18, compact ? 205 : h * .76);
+
+      // A few low-contrast wisps leave open sky above the distant silhouettes.
+      const cloudEdge = [[0, .8], [.12, .8], [.12, .65], [.25, .65], [.25, .4], [.34, .4], [.34, .15], [.43, .15], [.43, .3], [.5, .3], [.5, .55], [.66, .55], [.66, .4], [.73, .4], [.73, .65], [.87, .65], [.87, .8], [1, .8], [1, 1], [0, 1]];
+      for (const [x, y, width, height] of [
+        [-w * .08, ground - span * .72, w * .5, span * .075],
+        [w * .52, ground - span * .82, w * .56, span * .06],
+        [w * .14, ground - span * .57, w * .48, span * .045]
+      ]) {
+        paint.globalAlpha = .13;
+        fillTeamPolygon(paint, cloudEdge.map(([u, v]) => [Math.round(x + u * width), Math.round(y + v * height)]), "#c1acbc");
+      }
+      paint.globalAlpha = 1;
+
+      const moonX = Math.round(w * (compact ? .86 : .68));
+      const moonY = Math.round(Math.max(19, compact ? ground - towerHeight + 20 : ground - span * 1.05));
+      for (let y = -8; y <= 8; y++) for (let x = -8; x <= 8; x++) {
+        if (x * x + y * y < 65 && (x + 3) ** 2 + (y - 2) ** 2 > 56) rect(moonX + x, moonY + y, 1, 1, "#c6c2ce");
+      }
+
+      const palettes = [
+        { faces: ["#9699b6", "#a19ab3", "#8d9eb8"], glass: "#a4b6c9", alpha: .36 },
+        { faces: ["#7e98b2", "#8b92b0", "#7396ae"], glass: "#9dbbc9", alpha: .5 },
+        { faces: ["#577f99", "#647f9e", "#55798f"], glass: "#89a9b8", alpha: .65 }
+      ];
+      const accents = ["#c6d7c0", "#a6d3d9", "#d6b0a9", "#bdb2d3", "#ddc49f"];
+      palettes.forEach((palette, layer) => {
+        const bottom = Math.round(ground - (2 - layer) * span * .035);
+        rect(0, bottom - span * .08, w, span * .08, palette.faces[0]);
+        let index = 0;
+        let previous;
+        for (let x = -28; x < w; ) {
+          const width = Math.round(18 + layer * 5 + random() * (22 + layer * 8));
+          const height = Math.round(span * (.3 + random() * .5) * (1 - layer * .19) * .68);
+          const top = bottom - height;
+          const style = index++ % 6;
+          const face = palette.faces[Math.floor(random() * palette.faces.length)];
+          rect(x, top, width, height, face);
+          if (style === 0) {
+            rect(x + 4, top - 5, width - 8, 5, face);
+            rect(x + 9, top - 9, width - 18, 4, face);
+          } else if (style === 1) {
+            rect(x + width * .6, top - 9, 1, 9, face);
+            rect(x + width * .6 - 1, top - 10, 2, 2, "#c69eab");
+            rect(x + 4, top - 4, 7, 4, face);
+          } else if (style === 2) {
+            rect(x + 3, top - 7, width - 6, 1, face);
+            for (let rail = 3; rail < width - 2; rail += 3) rect(x + rail, top - 6, 1, 6, face);
+          } else if (style === 3) {
+            rect(x + width * .3, top - 12, width * .45, 12, face);
+            rect(x + width * .45, top - 17, 2, 5, face);
+          } else if (style === 4) {
+            rect(x + width - 9, top - 13, 2, 13, face);
+            rect(x + width - 16, top - 13, 9, 1, face);
+            rect(x + width - 16, top - 12, 1, 5, face);
+          }
+
+          const pitch = 5 + layer;
+          for (let y = top + 6; y < bottom - 4; y += pitch + 1) {
+            for (let col = x + 4; col < x + width - 4; col += pitch) {
+              if (random() < .38) continue;
+              const lit = random() > .86;
+              paint.globalAlpha = lit ? .8 : palette.alpha;
+              const color = lit ? accents[Math.floor(random() * accents.length)] : palette.glass;
+              const windowWidth = style === 5 ? 4 : 2;
+              const windowHeight = style === 3 ? 4 : 2;
+              rect(col, y, windowWidth, windowHeight, color);
+            }
+          }
+          paint.globalAlpha = 1;
+          if (style === 2 && layer > 0) {
+            paint.globalAlpha = .7;
+            const sign = accents[(index + layer) % accents.length];
+            rect(x + 5, top + 12, Math.min(width - 10, 12), 4, sign);
+            rect(x + 5, top + 17, Math.min(width - 10, 12), 1, sign);
+            paint.globalAlpha = 1;
+          }
+          if (previous && style % 3 === 0 && layer > 0) {
+            const bridgeY = Math.max(top, previous.top) + 18;
+            const left = previous.right - 4, bridgeWidth = x - left + 5;
+            rect(left, bridgeY, bridgeWidth, 2, face);
+            rect(left, bridgeY - 5, bridgeWidth, 1, face);
+            for (let rail = left; rail < x + 5; rail += 4) rect(rail, bridgeY - 4, 1, 4, face);
+            rect(left + 2, bridgeY + 2, 2, bottom - bridgeY - 2, face);
+          }
+          previous = { right: x + width, top };
+          x += width + 4 + Math.floor(random() * 14);
+        }
+      });
+
+      paint.globalAlpha = 1;
+    }
+
+    function drawTeamPlanting(paint, sceneWidth, ground, towerLeft, towerWidth, towerHeight, grid) {
+      const colors = ["#55798f", "#647f9e"];
+      const unit = Math.max(2, Math.round(towerWidth / 65));
+      const bottom = Math.round(ground);
+      const maxHeight = Math.min(towerHeight * .15, ground - (grid.y + grid.rows * grid.pitchY) - 5);
+      // Broad two-tone leaf masses share the distant buildings' muted blue palette.
+      const leaves = [
+        [
+          "     333       ",
+          "   333333      ",
+          "  334443332    ",
+          " 333333332222  ",
+          "  222333222222 ",
+          "    222222211  ",
+          "      11111    "
+        ],
+        [
+          "         33    ",
+          "   333  3333   ",
+          "  3343333332   ",
+          " 333333332222  ",
+          "   22233222222 ",
+          "    222222211  ",
+          "      11111    "
+        ]
+      ];
+      const bank = (left, width, height, outline, mirror = false) => {
+        const x = Math.round(left);
+        const columns = Math.max(2, Math.ceil(width / unit));
+        const tops = Array.from({ length: columns }, (_, col) => {
+          const position = col / (columns - 1) * (outline.length - 1);
+          const index = Math.floor(position), mix = position - index;
+          const rise = outline[index] * (1 - mix) + outline[Math.min(index + 1, outline.length - 1)] * mix;
+          return bottom - Math.max(unit, Math.floor(height * rise / unit) * unit);
+        });
+        // Every cluster is clipped to the same continuous bed and integer pixel grid.
+        const patch = (start, top, wide, tall, color) => {
+          paint.fillStyle = color;
+          for (let col = Math.max(0, start); col < Math.min(columns, start + wide); col++) {
+            const y = Math.max(top, tops[col]), end = Math.min(bottom, top + tall);
+            const left = Math.max(0, x + col * unit);
+            const right = Math.min(sceneWidth, x + (col + 1) * unit);
+            if (end > y && right > left) paint.fillRect(left, y, right - left, end - y);
+          }
+        };
+        patch(0, bottom - Math.ceil(height), columns, Math.ceil(height), colors[0]);
+        const clusters = [
+          [.28, .04, 1.05, 0], [.49, .19, 1, 1], [.13, .34, 1.15, 1],
+          [.68, .42, .95, 0], [.34, .50, 1.25, 0], [.02, .71, 1, 0],
+          [.51, .73, 1.15, 1], [.79, .81, .85, 0]
+        ];
+        clusters.forEach(([cx, cy, size, variant]) => {
+          const pattern = leaves[variant];
+          const wide = Math.max(8, Math.round(columns * .32 * size));
+          const tall = Math.max(4, Math.round(height / unit * .34));
+          const start = Math.round((mirror ? 1 - cx : cx) * (columns - wide));
+          const top = bottom - Math.round(height / unit) * unit + Math.round(cy * height / unit) * unit;
+          for (let row = 0; row < tall; row++) {
+            const pixels = pattern[Math.min(pattern.length - 1, Math.floor(row * pattern.length / tall))];
+            for (let col = 0; col < wide; col++) {
+              const sample = Math.min(pixels.length - 1, Math.floor(col * pixels.length / wide));
+              const value = pixels[mirror ? pixels.length - 1 - sample : sample];
+              if (value !== " ") patch(start + col, top + row * unit, 1, unit, colors[Number(value) >= 3 ? 1 : 0]);
+            }
+          }
+        });
+      };
+
+      const stride = Math.max(28, towerWidth * .44);
+      const outline = [.12, .25, .48, .43, .72, .8, .64, .47, .52, .66, .49, .26, .12];
+      const leftEnd = towerLeft + towerWidth * .2;
+      let cluster = 0;
+      for (let left = -stride * .3; left < leftEnd; left += stride) {
+        bank(left, Math.min(stride * 1.45, leftEnd - left), maxHeight * [.64, .8, .56][cluster % 3], outline, cluster++ % 2 === 0);
+      }
+      for (let left = towerLeft + towerWidth * .66; left < sceneWidth; left += stride) {
+        bank(left, stride * 1.45, maxHeight * [.6, .76][cluster % 2], outline, cluster++ % 2 === 0);
+      }
+
+      // Leave a break in the continuous planting for the glass entrance and steps.
+      bank(towerLeft - towerWidth * .48, towerWidth * .7, maxHeight,
+        [.05, .16, .32, .29, .60, .58, .89, .94, .69, .72, .51, .46, .29, .24, .09]);
+      bank(towerLeft + towerWidth * .64, towerWidth * .65, maxHeight * .84,
+        [.08, .22, .28, .48, .43, .71, .92, .86, .63, .68, .41, .36, .19, .12, .05], true);
+    }
+
+    function setupTeamScene() {
+      const { layer } = teamScene;
+      const box = layer.getBoundingClientRect();
+      layer.width = Math.ceil(box.width / 2);
+      layer.height = Math.ceil(box.height / 2);
+      const w = layer.width, h = layer.height;
+      const base = document.createElement("canvas");
+      base.width = w;
+      base.height = h;
+      const paint = base.getContext("2d");
+      const compact = box.width <= 640;
+      const header = layer.parentElement.querySelector('.section-header').getBoundingClientRect();
+      const profiles = layer.parentElement.querySelector('.profiles').getBoundingClientRect();
+      const availableHeight = compact ? (profiles.top - header.bottom - 60) / 2 : h * .56;
+
+      // A level window face keeps every lit pane intact even at small zoom levels.
+      // A shallow oblique return gives the concrete tower its characteristic depth.
+      const height = 2.7, depth = 1.15;
+      const camera = (x, d, z) => [(x - .5) * 1.12 + d * .27, .24 - z + d * .18 * z / height];
+      const corners = [camera(0, 0, 0), camera(1, 0, height), camera(1, depth, height), camera(0, 0, height)];
+      const minX = Math.min(...corners.map(point => point[0]));
+      const maxX = Math.max(...corners.map(point => point[0]));
+      const minY = camera(1, 0, height)[1], maxY = camera(1, 0, 0)[1];
+      const scale = Math.min((compact ? w * .64 : w * .29) / (maxX - minX), availableHeight / (maxY - minY));
+      const towerWidth = (maxX - minX) * scale;
+      const towerLeft = compact ? (w - towerWidth) / 2 : w * .965 - towerWidth;
+
+      const towerHeight = (maxY - minY) * scale;
+      const ground = compact ? (header.bottom - box.top + 28) / 2 + towerHeight :
+        Math.min(h - 70, Math.max(h * .78, (profiles.bottom - box.top + 144) / 2));
+      const towerTop = ground - towerHeight;
+      const backdrop = document.createElement("canvas");
+      backdrop.width = w;
+      backdrop.height = h;
+      drawTeamBackdrop(backdrop.getContext("2d"), w, h, towerTop + towerHeight, towerHeight, compact);
+
+      const project = (x, d, z) => {
+        const point = camera(x, d, z);
+        return [towerLeft + (point[0] - minX) * scale, towerTop + (point[1] - minY) * scale];
+      };
+      const face = (u, z, width, tall, d = 0) => [
+        project(u, d, z), project(u + width, d, z),
+        project(u + width, d, z + tall), project(u, d, z + tall)
+      ];
+      const front = (u, z, width, tall, color, d = 0) => fillTeamPolygon(paint, face(u, z, width, tall, d), color);
+      const side = (d, z, width, tall, color) => fillTeamPolygon(paint, [
+        project(1, d, z), project(1, d + width, z),
+        project(1, d + width, z + tall), project(1, d, z + tall)
+      ], color);
+
+      const stone = {
+        face: "#7889a3", crown: "#7e8aa3", edge: "#8896ae",
+        side: "#6d809b", shade: "#627792", seam: "#7b8ba5",
+        recess: "#526781", glass: "#617892", darkGlass: "#586d88", glint: "#8095aa",
+        lobby: "#455d76", reflection: "#7391a8", metal: "#607990"
+      };
+      side(0, 0, depth, 2.58, stone.side);
+      side(.09, .04, .33, 2.52, stone.seam);
+      for (let floor = 0; floor < 11; floor++) {
+        side(.42, 2.145 - floor * .145 - .09, .08, .09, stone.recess);
+      }
+      side(.415, .26, .013, 2.27, stone.face);
+      side(.51, .04, .54, 2.52, stone.side);
+      side(1.05, 0, .055, 2.62, stone.shade);
+      side(1.105, 0, .045, 2.64, stone.seam);
+      for (let seam = .015; seam < depth; seam += .04) {
+        if (seam > .4 && seam < .51) continue;
+        side(seam, .05, .003, 2.48, stone.side);
+      }
+      for (let z = .3; z < 2.55; z += .167) side(0, z, depth, .004, stone.shade);
+
+      front(0, 0, 1, 2.6, stone.seam);
+      // Recessed mechanical crown, open roof rails, and projecting concrete piers.
+      front(.11, 2.24, .78, .31, stone.crown);
+      front(.13, 2.24, .025, .3, stone.recess);
+      front(.85, 2.24, .025, .3, stone.recess);
+      for (let u = .16; u < .85; u += .135) front(u, 2.255, .004, .28, stone.seam);
+      for (let u = .134; u < .154; u += .007) front(u, 2.24, .002, .3, stone.edge);
+      for (let u = .852; u < .875; u += .007) front(u, 2.24, .002, .3, stone.edge);
+      front(.11, 2.55, .78, .025, stone.edge);
+      front(.11, 2.575, .78, .012, stone.recess);
+      front(.11, 2.205, .78, .035, stone.face);
+      front(.13, 2.17, .74, .035, stone.shade);
+      front(.13, 2.162, .74, .008, stone.edge);
+      for (let u = .19; u < .88; u += .2) {
+        front(u, 2.56, .012, .075, stone.edge);
+        front(u + .012, 2.56, .006, .063, stone.shade);
+      }
+
+      const floors = 11, rows = floors, cols = 6;
+      const windowLeft = .162, windowWidth = .676, windowHeight = 1.595;
+      const [windowX, windowY] = project(windowLeft, 0, 2.145);
+      const pitchX = Math.max(4, Math.floor(windowWidth * 1.12 * scale / cols));
+      const pitchY = Math.max(5, Math.floor(windowHeight * scale / rows));
+      const grid = {
+        rows, cols, pitchX, pitchY,
+        paneWidth: pitchX - 1, paneHeight: Math.max(3, Math.round(pitchY * .6)),
+        x: Math.round(windowX + (windowWidth * 1.12 * scale - pitchX * cols) / 2),
+        y: Math.round(windowY + (windowHeight * scale - pitchY * rows) / 2)
+      };
+      front(.12, .52, .76, 1.64, stone.face);
+      for (let floor = 0; floor < floors; floor++) {
+        const y = grid.y + floor * pitchY;
+        paint.fillStyle = stone.recess;
+        paint.fillRect(grid.x - 2, y - 1, cols * pitchX + 3, grid.paneHeight + 2);
+        for (let col = 0; col < cols; col++) {
+          paint.fillStyle = (floor + col * 3) % 7 < 3 ? stone.glass : stone.darkGlass;
+          paint.fillRect(grid.x + col * pitchX, y, grid.paneWidth, grid.paneHeight);
+        }
+        paint.fillStyle = stone.edge;
+        paint.fillRect(grid.x - 2, y + grid.paneHeight + 1, cols * pitchX + 3, 1);
+      }
+
+      // Two-story curtain wall, recessed entry pairs, and the mezzanine behind the glass.
+      front(.12, .08, .76, .44, stone.lobby);
+      front(.12, .50, .76, .033, stone.shade);
+      front(.12, .489, .76, .011, stone.recess);
+      for (let col = 0; col < 12; col++) {
+        const u = .136 + col * .061;
+        front(u, .085, .052, .397, col % 4 === 0 ? stone.darkGlass : stone.lobby);
+        if (col % 3 !== 1) front(u, .451, .052, .023, stone.glint);
+        if (col === 2 || col === 5 || col === 8) front(u, .35, .052, .025, stone.reflection);
+        front(u, .085, .004, .397, stone.metal);
+      }
+      front(.13, .276, .74, .034, stone.shade);
+      front(.13, .307, .74, .006, stone.seam);
+      front(.13, .231, .74, .005, stone.metal);
+      for (const u of [.215, .581]) {
+        front(u, .085, .174, .14, stone.recess);
+        for (const offset of [0, .085, .17]) front(u + offset, .085, .004, .14, stone.metal);
+        front(u, .222, .174, .005, stone.seam);
+        front(u + .007, .10, .07, .009, stone.darkGlass);
+        front(u + .094, .10, .07, .009, stone.darkGlass);
+        for (const offset of [.069, .098]) front(u + offset, .14, .004, .023, stone.glint);
+      }
+      front(.397, .158, .018, .02, "#adb1bb");
+      front(.757, .158, .014, .019, stone.glint);
+
+      for (const u of [0, .85]) {
+        front(u, 0, .15, height, stone.face);
+        front(u, 0, .018, height, stone.edge);
+        front(u + .129, 0, .021, height, stone.side);
+        for (let groove = u + .028; groove < u + .127; groove += .016) {
+          front(groove, .04, .003, height - .05, stone.seam);
+        }
+        for (let z = .3; z < height; z += .167) front(u + .018, z, .111, .004, stone.seam);
+      }
+      side(0, 0, .08, height, stone.side);
+      side(.08, 0, .025, height, stone.face);
+      for (let step = 0; step < 5; step++) {
+        front(.12 - step * .016, .073 - step * .014, .76 + step * .032, .009, stone.seam, -.015 - step * .02);
+      }
+      for (const u of [.19, .8]) {
+        front(u, .024, .004, .102, stone.recess, -.035);
+        front(u - .023, .023, .004, .076, stone.recess, -.08);
+        fillTeamPolygon(paint, [project(u, -.035, .126), project(u + .004, -.035, .126), project(u - .019, -.08, .099), project(u - .023, -.08, .099)], stone.recess);
+      }
+
+      const foreground = document.createElement("canvas");
+      foreground.width = w;
+      foreground.height = h;
+      drawTeamPlanting(foreground.getContext("2d"), w, ground, towerLeft, towerWidth, towerHeight, grid);
+
+      teamScene.base = base;
+      teamScene.backdrop = backdrop;
+      teamScene.foreground = foreground;
+      teamScene.ground = ground;
+      teamScene.towerHeight = towerHeight;
+      teamScene.grid = grid;
+      teamScene.game ||= new TeamTetris({ cols, rows, seedPieces: 3 });
+      teamScene.nextFall = cloudTime + .2;
+      teamScene.lastDraw = -Infinity;
+      drawTeamScene();
+    }
+
+    function drawTeamScene() {
+      const scene = teamScene;
+      if (!scene.base || (prefersReduced && scene.lastDraw !== -Infinity)) return;
+      if (cloudTime - scene.lastDraw < 1 / 12) return;
+      const bounds = scene.layer.getBoundingClientRect();
+      if (bounds.bottom < 0 || bounds.top > innerHeight) return;
+      if (!prefersReduced && cloudTime >= scene.nextFall) {
+        const result = scene.game.step();
+        if (result === 'over') scene.game = new TeamTetris({ cols: scene.grid.cols, rows: scene.grid.rows, seedPieces: 3 });
+        scene.nextFall = cloudTime + (result === 'locked' ? .6 : .2);
+      }
+      const paint = scene.layer.getContext("2d");
+      paint.clearRect(0, 0, scene.layer.width, scene.layer.height);
+      paint.drawImage(scene.backdrop, 0, 0);
+      paint.globalAlpha = 1;
+      paint.drawImage(scene.base, 0, 0);
+      paint.globalAlpha = 1;
+      const { x, y, pitchX, pitchY, paneWidth, paneHeight } = scene.grid;
+      scene.game.state.body.forEach((row, rowIndex) => row.forEach((block, col) => {
+        if (!block.val) return;
+        const left = x + col * pitchX, top = y + rowIndex * pitchY;
+        paint.fillStyle = tetrisColors[block.cssClasses.find(name => name && name.endsWith('Shape'))];
+        paint.fillRect(left, top, paneWidth, paneHeight);
+        // One block lights one entire pane, without painting over its masonry or mullions.
+        paint.fillStyle = "rgba(36,54,75,.25)";
+        paint.fillRect(left + paneWidth - 1, top, 1, paneHeight);
+        paint.fillRect(left, top + paneHeight - 1, paneWidth - 1, 1);
+      }));
+      paint.globalAlpha = 1;
+      paint.drawImage(scene.foreground, 0, 0);
+      scene.lastDraw = cloudTime;
+    }
+
+    function drawNightSky() {
+      const sky = document.getElementById("nightSky");
+      const main = sky.parentElement;
+      const mainBox = main.getBoundingClientRect();
+      const events = document.getElementById("events");
+      const overlap = Math.min(420, events.getBoundingClientRect().height * .4);
+      events.style.setProperty("--night-overlap", `${overlap}px`);
+      const start = document.getElementById("about").getBoundingClientRect().top - mainBox.top - overlap;
+      const height = mainBox.height - start;
+      sky.style.top = `${start}px`;
+      sky.style.height = `${height}px`;
+      // Begin behind Events so its clouds and poles dissolve into the same continuous night sky.
+      const nightStart = overlap / height;
+      const aboutSpan = document.getElementById("about").getBoundingClientRect().height / height;
+      const sectionStop = (id, fraction = 0) => {
+        const rect = document.getElementById(id).getBoundingClientRect();
+        return (rect.top - mainBox.top - start + rect.height * fraction) / height;
+      };
+      drawPixelSky(sky, [
+        [0, [160, 139, 178]], [nightStart, [134, 126, 184]],
+        [nightStart + aboutSpan * .32, [104, 102, 161]],
+        [nightStart + aboutSpan * .85, [57, 61, 106]], [nightStart + aboutSpan, [48, 52, 91]],
+        [sectionStop("resources", .40), [52, 62, 94]],
+        [sectionStop("resources", .74), [60, 71, 102]],
+        [sectionStop("resources", .94), [68, 79, 110]],
+        [sectionStop("team"), [72, 82, 112]],
+        [sectionStop("team", .22), [99, 107, 137]],
+        [sectionStop("team", .46), [155, 136, 159]],
+        [sectionStop("team", .65), [128, 143, 165]],
+        [sectionStop("team", .88), [54, 76, 103]],
+        [sectionStop("contact"), [19, 30, 55]], [1, [8, 15, 34]]
+      ], { width: mainBox.width, height }, { colors: 512, ripple: .2 });
+    }
+
+    function drawTeamWater() {
+      const layer = document.getElementById("teamWater");
+      const mainBox = layer.parentElement.getBoundingClientRect();
+      const teamBox = teamScene.layer.getBoundingClientRect();
+      const compact = mainBox.width <= 640;
+      const shoreline = Math.round(teamScene.ground);
+      const top = compact ? teamBox.bottom - 120 : teamBox.top + shoreline * teamBox.height / teamScene.layer.height;
+      const height = Math.max(1, mainBox.bottom - top);
+      layer.style.top = `${top - mainBox.top}px`;
+      layer.style.height = `${height}px`;
+      layer.width = Math.ceil(mainBox.width / 2);
+      layer.height = Math.ceil(height / 2);
+      const paint = layer.getContext("2d");
+      paint.imageSmoothingEnabled = false;
+      const source = document.createElement("canvas");
+      source.width = teamScene.layer.width;
+      source.height = shoreline;
+      const reflection = source.getContext("2d");
+      reflection.drawImage(teamScene.backdrop, 0, 0);
+      reflection.drawImage(teamScene.base, 0, 0);
+      reflection.drawImage(teamScene.foreground, 0, 0);
+      // Mirror at the scenery's original scale; still water does not reshape the buildings.
+      const sampleStep = source.width / layer.width;
+      for (let y = 0; y < layer.height; y++) {
+        const progress = y / Math.max(1, layer.height - 1);
+        const fade = 1 - progress * progress * (3 - 2 * progress);
+        const entry = compact ? Math.min(1, y / 32) : 1;
+        const waterFade = 1 - progress ** 3;
+        const color = [8 + 64 * waterFade, 15 + 88 * waterFade, 34 + 107 * waterFade].map(Math.round);
+        paint.globalAlpha = entry;
+        paint.fillStyle = `rgb(${color.join(",")})`;
+        paint.fillRect(0, y, layer.width, 1);
+        const sourceY = Math.floor(source.height - 1 - y * sampleStep);
+        if (sourceY >= 0) {
+          // Match the last land row first, then soften into the pale river without a dark seam.
+          const bankProgress = Math.min(1, y / 16);
+          const bankFade = 1 - bankProgress * bankProgress * (3 - 2 * bankProgress);
+          paint.globalAlpha = (compact ? .26 : .38 + .62 * bankFade) * fade * entry;
+          paint.drawImage(source, 0, sourceY, source.width, 1, 0, y, layer.width, 1);
+        }
+        if (y % 13 === 5 && progress < .78) {
+          paint.globalAlpha = .09 * fade * entry;
+          paint.fillStyle = "#b9d5df";
+          for (let x = (y * 17) % 47; x < layer.width; x += 87 + (y % 17)) {
+            paint.fillRect(x, y, 4 + ((x + y) % 8), 1);
+          }
+        }
+      }
+      paint.globalAlpha = 1;
+    }
+
+    function drawSkies() {
+      drawPixelSky(document.getElementById("pixelSky"), [
+        [0, [185, 137, 180]], [.26, [212, 149, 181]], [.52, [239, 164, 176]],
+        [.78, [255, 197, 171]], [1, [244, 181, 162]]
+      ]);
+      drawPixelSky(document.getElementById("eventsSky"), [
+        [0, [184, 137, 157]], [.32, [190, 145, 165]], [.64, [219, 165, 172]],
+        [.82, [221, 173, 178]], [1, [160, 139, 178]]
+      ], undefined, { colors: 96, ripple: .3, pixelSize: 2 });
+      drawSkyScene(document.getElementById("pixelSky"), false);
+      drawEventAtmosphere(document.getElementById("eventsSky"));
+      const campus = document.getElementById("campusSky");
+      const campusBox = campus.parentElement.getBoundingClientRect();
+      campus.width = Math.ceil(campusBox.width / 2);
+      campus.height = Math.ceil(campusBox.height / 2);
+      drawCampus(campus.getContext("2d"), campus.width, campus.height);
+      blendSkyBoundary(document.getElementById("pixelSky"), false, [184, 137, 157], 280);
+      blendSkyBoundary(document.getElementById("eventsSky"), true, [184, 137, 157], 220);
+      // Keep lunar details above the transition tint, with only a light cloud veil in front.
+      drawSkyScene(document.getElementById("eventsSky"), true);
+      drawEventAtmosphere(document.getElementById("eventsSky"), true);
+      drawNightSky();
+      drawAboutScene();
+      setupCityBackdrop();
+      setupTeamScene();
+      drawTeamWater();
+      cloudScenes.length = 0;
+      setupClouds("homeClouds", false);
+      setupClouds("eventsClouds", true, { starsOnly: true, stars: ["#f7cfca", "#e8adb9", "#ba99bd"], seed: 921 });
+      setupClouds("aboutStars", false, { starsOnly: true, literalStars: true, shootingStars: true, stars: ["#e6dce2", "#d9d9ec", "#b8c5e5"], seed: 231 });
+      setupClouds("teamClouds", false, { starsOnly: true, stars: ["#dfd3d0", "#bac5d8", "#8b9dbb"], seed: 412 });
+      setupClouds("resourcesClouds", false, { starsOnly: true, stars: ["#dfe7f8", "#aac6eb", "#7c98d1"], seed: 593 });
+      drawFloatingClouds();
+      // Responsive artwork moves the moon after the window resize handler runs.
+      syncScrollBear();
+    }
+
+    function resizeCanvas() {
+      const box = canvas.getBoundingClientRect();
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = Math.round(box.width * ratio);
+      canvas.height = Math.round(box.height * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      ctx.imageSmoothingEnabled = false;
+      state.width = box.width;
+      state.height = box.height;
+      state.barWidth = Math.min(144, (box.width - 36) / 3.65);
+      document.documentElement.style.setProperty("--bar-width", `${state.barWidth}px`);
+    }
+
+    function resetGame(resetProgress = true) {
+      const heroBox = document.getElementById("top").getBoundingClientRect();
+      const gameBox = canvas.getBoundingClientRect();
+      const roof = campusSkylineTop(heroBox.width, heroBox.height) - (gameBox.top - heroBox.top);
+      // Keep the starting perch in place, then descend to the far-right landing.
+      const base = Math.min(state.height - 88, roof - 28 - 17 - 40);
+      state.platforms = [
+        { x: 18, y: base - 34 },
+        { x: state.width - 18 - state.barWidth, y: Math.min(state.height - 45, base + 100) }
+      ];
+      if (resetProgress) {
+        faceTarget(0, 1);
+        state.current = 0;
+        state.mode = "intro";
+        state.travel = null;
+        state.scrollDriven = false;
+        state.scrollPosition = null;
+        state.scrollTarget = null;
+        state.scrollAnchor = null;
+        state.autoLeap = null;
+        state.autoIndex = 0;
+        state.autoDesired = 0;
+      }
+      state.camera = 0;
+      state.leap = null;
+      state.current = Math.min(state.current, state.platforms.length - 1);
+      state.bear.x = state.platforms[state.current].x + (state.barWidth - state.bear.w) / 2;
+      state.bear.y = state.platforms[state.current].y - state.bear.h;
+    }
+
+    function drawAscii(text, x, y, color, size = 15) {
+      ctx.font = `${size}px ${monoFont}`;
+      ctx.fillStyle = color;
+      text.split("\n").forEach((line, index) => ctx.fillText(line, x, y + index * size));
+    }
+
+    function faceTarget(fromX, toX) {
+      if (Math.abs(toX - fromX) > .5) state.facing = toX > fromX ? 1 : -1;
+      scrollBear.querySelectorAll("canvas").forEach(sprite => {
+        sprite.style.transform = `scaleX(${state.facing})`;
+      });
+    }
+
+    function drawBear() {
+      if (state.mode !== "intro") return;
+      const { x, y } = state.bear;
+      const sprite = state.leap && state.leap.elapsed >= state.leap.turnDuration ? bearSprites.jumping : bearSprites.standing;
+      if (!sprite.image.complete || !sprite.image.naturalWidth) return;
+      const scale = state.bear.h / bearSprites.standing.crop[3];
+      const width = sprite.crop[2] * scale;
+      const height = sprite.crop[3] * scale;
+      ctx.save();
+      ctx.translate(Math.round(x - state.camera + state.bear.w / 2), 0);
+      ctx.scale(state.facing, 1);
+      drawBearSprite(ctx, sprite, -width / 2,
+        Math.round(y + state.bear.h - height), width, height);
+      ctx.restore();
+    }
+
+    function drawPlatform(platform, index) {
+      const x = Math.round(platform.x - state.camera);
+      ctx.fillStyle = index === state.current ? "#fff7cf" : "#fff0b3";
+      ctx.fillRect(x, platform.y, state.barWidth, 8);
+      ctx.fillStyle = "#c8838f";
+      ctx.fillRect(x, platform.y + 8, state.barWidth, 6);
+      ctx.fillStyle = "#82526f";
+      ctx.fillRect(x, platform.y + 14, state.barWidth, 3);
+    }
+
+    function jump() {
+      if (state.leap || state.travel || state.autoLeap) return;
+      if (state.mode === "scroll") {
+        const target = state.scrollTarget;
+        if (!target) return;
+        state.scrollDriven = false;
+        if (target.sectionIndex >= 0) {
+          startSectionJump(target.sectionIndex, target.barIndex);
+          return;
+        }
+        const rect = canvas.getBoundingClientRect();
+        state.current = Math.max(0, target.barIndex - 1);
+        state.bear.x = state.scrollPosition.x - rect.left - state.bear.w / 2;
+        state.bear.y = state.scrollPosition.y - rect.top - window.scrollY - state.bear.h;
+        state.mode = "intro";
+        scrollBear.classList.remove("visible", "hop");
+      }
+      if (state.mode === "section") {
+        const bars = sections[state.sectionIndex].querySelectorAll(".section-platform");
+        if (state.sectionBarIndex + 1 < bars.length) startSectionJump(state.sectionIndex, state.sectionBarIndex + 1);
+        else startSectionJump(state.sectionIndex + 1);
+        return;
+      }
+      if (state.current === state.platforms.length - 1) {
+        startSectionJump(0);
+        return;
+      }
+      const target = state.platforms[state.current + 1];
+      faceTarget(state.bear.x + state.bear.w / 2, target.x + state.barWidth / 2);
+      state.leap = {
+        fromX: state.bear.x, fromY: state.bear.y,
+        toX: target.x + (state.barWidth - state.bear.w) / 2,
+        toY: target.y - state.bear.h,
+        fromCamera: state.camera,
+        toCamera: 0,
+        arcHeight: Math.max(0, Math.min(70, state.bear.y - 24, target.y - state.bear.h - 24)),
+        elapsed: 0,
+        turnDuration: prefersReduced ? 0 : 100,
+        duration: prefersReduced ? 160 : 720
+      };
+    }
+
+    function update(delta) {
+      if (state.scrollDriven) {
+        updateAutoJump(delta);
+        return;
+      }
+      if (state.travel) {
+        updateTravel(delta);
+        return;
+      }
+      const leap = state.leap;
+      if (!leap) return;
+      leap.elapsed = Math.min(leap.duration, leap.elapsed + delta);
+      const t = Math.max(0, (leap.elapsed - leap.turnDuration) / (leap.duration - leap.turnDuration));
+      const ease = t * t * (3 - 2 * t);
+      state.bear.x = leap.fromX + (leap.toX - leap.fromX) * ease;
+      state.bear.y = leap.fromY + (leap.toY - leap.fromY) * ease -
+        (prefersReduced ? 0 : leap.arcHeight * 4 * t * (1 - t));
+      state.camera = leap.fromCamera + (leap.toCamera - leap.fromCamera) * t * t * t;
+      if (t < 1) return;
+      state.current += 1;
+      state.leap = null;
+      state.scrollAnchor = { sectionIndex: -1, barIndex: state.current, scrollY: window.scrollY };
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, state.width, state.height);
+      state.platforms.forEach(drawPlatform);
+      drawBear();
+    }
+
+    function frame(time) {
+      const delta = state.last ? Math.min(50, time - state.last) : 0;
+      state.last = time;
+      if (!prefersReduced) cloudTime += delta / 1000;
+      drawFloatingClouds();
+      update(delta);
+      drawCityWindows();
+      drawTeamScene();
+      draw();
+      requestAnimationFrame(frame);
+    }
+
+    function landingPoint(sectionIndex, barIndex = 0) {
+      if (sectionIndex < 0) {
+        const rect = canvas.getBoundingClientRect();
+        const platform = state.platforms[barIndex];
+        return { x: rect.left + platform.x + state.barWidth / 2,
+          y: rect.top + window.scrollY + platform.y };
+      }
+      const platform = sections[sectionIndex].querySelectorAll(".section-platform")[barIndex];
+      const folder = platform.querySelector(".folder-icon");
+      const rect = (folder || platform).getBoundingClientRect();
+      return { x: rect.left + rect.width / 2,
+        y: rect.top + window.scrollY + (folder ? rect.height * 25 / 90 : platform.classList.contains("moon-platform") ? 0 : 22) };
+    }
+
+    function positionFollower(point) {
+      scrollBear.style.left = `${point.x - 27}px`;
+      scrollBear.style.top = `${point.y - window.scrollY - 89}px`;
+    }
+
+    function syncScrollBear() {
+      document.body.classList.toggle("past-hero", window.scrollY >= document.getElementById("top").offsetHeight - 64);
+      if (state.travel) return;
+      if (state.scrollDriven) {
+        updateScrollProgress();
+        return;
+      }
+      scrollBear.classList.toggle("visible", state.mode === "section");
+      scrollBear.classList.remove("hop");
+      if (state.mode === "section") positionFollower(landingPoint(state.sectionIndex, state.sectionBarIndex));
+    }
+
+    function scrollRoute() {
+      const heroHeight = document.getElementById("top").offsetHeight;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const route = state.platforms.map((_, barIndex) => ({ sectionIndex: -1, barIndex,
+        scrollAt: heroHeight * barIndex * .16, point: landingPoint(-1, barIndex) }));
+      sections.forEach((section, sectionIndex) => {
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        section.querySelectorAll(".section-platform").forEach((_, barIndex) => {
+          const point = landingPoint(sectionIndex, barIndex);
+          const preferred = barIndex === 0 ? sectionTop - window.innerHeight * .35 :
+            point.y - window.innerHeight * .64;
+          const scrollAt = Math.min(maxScroll, Math.max(route[route.length - 1].scrollAt + 120, preferred));
+          route.push({ sectionIndex, barIndex, scrollAt, point });
+        });
+      });
+      return route;
+    }
+
+    function updateScrollProgress() {
+      const route = scrollRoute();
+      const decayDistance = Math.max(window.innerHeight, Math.abs(state.scrollBias) * 2);
+      const bias = state.scrollBias * Math.max(0, 1 - Math.abs(window.scrollY - state.scrollOrigin) / decayDistance);
+      const progressScroll = window.scrollY + bias;
+      let index = 0;
+      while (index < route.length - 1 && progressScroll >= route[index + 1].scrollAt) index++;
+      state.autoDesired = index;
+      state.mode = "scroll";
+      scrollBear.classList.add("visible");
+      if (!state.autoLeap) startAutoJump(route);
+    }
+
+    function startAutoJump(route = scrollRoute()) {
+      const current = route[state.autoIndex];
+      if (!state.scrollPosition) state.scrollPosition = current.point;
+      if (state.autoDesired === state.autoIndex) {
+        state.scrollPosition = current.point;
+        state.scrollTarget = route[state.autoIndex + 1] || null;
+        scrollBear.classList.remove("hop");
+        positionFollower(state.scrollPosition);
+        return;
+      }
+      // Finish each time-based hop even if scrolling stops; subsequent input only queues a landing.
+      const targetIndex = state.autoDesired;
+      const target = route[targetIndex];
+      faceTarget(state.scrollPosition.x, target.point.x);
+      state.autoLeap = { from: { ...state.scrollPosition }, targetIndex,
+        sectionIndex: target.sectionIndex, barIndex: target.barIndex,
+        elapsed: 0, turnDuration: prefersReduced ? 0 : 100, duration: prefersReduced ? 1 : 860 };
+      scrollBear.classList.remove("hop");
+    }
+
+    function updateAutoJump(delta) {
+      const leap = state.autoLeap;
+      if (!leap) return;
+      leap.elapsed = Math.min(leap.duration, leap.elapsed + delta);
+      const t = Math.max(0, (leap.elapsed - leap.turnDuration) / (leap.duration - leap.turnDuration));
+      scrollBear.classList.toggle("hop", !prefersReduced && leap.elapsed >= leap.turnDuration);
+      const ease = t * t * (3 - 2 * t);
+      const target = landingPoint(leap.sectionIndex, leap.barIndex);
+      state.scrollPosition = {
+        x: leap.from.x + (target.x - leap.from.x) * ease,
+        y: leap.from.y + (target.y - leap.from.y) * ease - (prefersReduced ? 0 : Math.sin(t * Math.PI) * 90)
+      };
+      positionFollower(state.scrollPosition);
+      if (t < 1) return;
+      state.autoIndex = leap.targetIndex;
+      state.autoLeap = null;
+      state.current = leap.sectionIndex < 0 ? leap.barIndex : state.platforms.length - 1;
+      onPlatformLanding(leap.sectionIndex, leap.barIndex);
+      scrollBear.classList.remove("hop");
+      startAutoJump();
+    }
+
+    function destinationScroll(sectionIndex, barIndex) {
+      const destination = sectionIndex < 0 ? document.getElementById("top") : sections[sectionIndex];
+      const sectionTop = destination.getBoundingClientRect().top + window.scrollY;
+      const anchorTop = sectionTop - parseFloat(getComputedStyle(destination).scrollMarginTop || 0);
+      const target = barIndex > 0 ? Math.max(sectionTop, landingPoint(sectionIndex, barIndex).y - window.innerHeight * .64) : anchorTop;
+      return Math.min(target, document.documentElement.scrollHeight - window.innerHeight);
+    }
+
+    function startSectionJump(nextSection, targetBar = 0) {
+      if (state.travel || state.leap) return;
+      if (!sections[nextSection]?.querySelectorAll(".section-platform")[targetBar]) return;
+      const targetIndex = nextSection;
+      let from;
+      if (state.mode === "scroll") {
+        from = state.scrollPosition;
+      } else if (state.mode === "intro") {
+        const rect = canvas.getBoundingClientRect();
+        from = { x: rect.left + state.bear.x + state.bear.w / 2,
+          y: rect.top + window.scrollY + state.bear.y + state.bear.h };
+      } else {
+        from = landingPoint(state.sectionIndex, state.sectionBarIndex);
+      }
+      const targetScroll = destinationScroll(targetIndex, targetBar);
+      const target = landingPoint(targetIndex, targetBar);
+      faceTarget(from.x, target.x);
+      const arcHeight = Math.max(0, Math.min(100,
+        from.y - window.scrollY - 105, target.y - targetScroll - 105));
+      state.travel = { from, targetIndex, targetBar, fromScroll: window.scrollY,
+        arcHeight, elapsed: 0, turnDuration: prefersReduced ? 0 : 100, duration: prefersReduced ? 1 : 1200 };
+      state.mode = "travel";
+      state.scrollDriven = false;
+      scrollBear.classList.add("visible");
+      scrollBear.classList.remove("hop");
+      positionFollower(from);
+    }
+
+    function updateTravel(delta) {
+      const travel = state.travel;
+      travel.elapsed = Math.min(travel.duration, travel.elapsed + delta);
+      const t = Math.max(0, (travel.elapsed - travel.turnDuration) / (travel.duration - travel.turnDuration));
+      scrollBear.classList.toggle("hop", !prefersReduced && travel.elapsed >= travel.turnDuration);
+      const ease = t * t * (3 - 2 * t);
+      const targetScroll = destinationScroll(travel.targetIndex, travel.targetBar);
+      const target = landingPoint(travel.targetIndex, travel.targetBar);
+      // Move the viewport and the bear together so the cross-section landing stays visible.
+      window.scrollTo({ top: travel.fromScroll + (targetScroll - travel.fromScroll) * ease, behavior: "instant" });
+      positionFollower({
+        x: travel.from.x + (target.x - travel.from.x) * ease,
+        y: travel.from.y + (target.y - travel.from.y) * ease - (prefersReduced ? 0 : Math.sin(t * Math.PI) * travel.arcHeight)
+      });
+      if (t < 1) return;
+      state.travel = null;
+      onPlatformLanding(travel.targetIndex, travel.targetBar);
+      if (travel.targetIndex < 0) {
+        resetGame();
+        canvas.focus({ preventScroll: true });
+      } else {
+        state.mode = "section";
+        state.sectionIndex = travel.targetIndex;
+        state.sectionBarIndex = travel.targetBar;
+        state.scrollAnchor = { sectionIndex: state.sectionIndex, barIndex: state.sectionBarIndex, scrollY: window.scrollY };
+        sections[state.sectionIndex].querySelectorAll(".section-platform")[state.sectionBarIndex].focus({ preventScroll: true });
+      }
+      syncScrollBear();
+    }
+
+    window.addEventListener("resize", () => {
+      const box = canvas.getBoundingClientRect();
+      if (box.width !== state.width || box.height !== state.height) {
+        resizeCanvas();
+      }
+      resetGame(false);
+      syncScrollBear();
+    });
+
+    window.addEventListener("keydown", event => {
+      if (event.target.closest(".team-pagination")) return;
+      if (event.target.closest(".site-nav")) return;
+      if (event.target.closest(".folder-platform") && ["Space", "ArrowUp"].includes(event.code)) {
+        event.preventDefault();
+        if (!event.repeat) jump();
+        return;
+      }
+      if (state.mode === "scroll" && ["Space", "ArrowUp"].includes(event.code) &&
+          !event.target.closest("input, textarea, select, [contenteditable]")) {
+        event.preventDefault();
+        if (!event.repeat) jump();
+        return;
+      }
+      if (event.target.closest("button, a, input, textarea, select")) return;
+      const hero = document.getElementById("top").getBoundingClientRect();
+      if (event.code === "Space" || event.code === "ArrowUp") {
+        if (state.mode === "intro" && (hero.bottom <= 0 || hero.top >= window.innerHeight)) return;
+        event.preventDefault();
+        if (!event.repeat) jump();
+      }
+    });
+
+    canvas.addEventListener("pointerdown", jump);
+    window.addEventListener("scroll", syncScrollBear, { passive: true });
+
+    function followManualScroll() {
+      if (!state.scrollDriven) {
+        const route = scrollRoute();
+        const saved = state.scrollAnchor;
+        const anchor = saved && route.find(stop => stop.sectionIndex === saved.sectionIndex && stop.barIndex === saved.barIndex);
+        state.scrollOrigin = saved ? saved.scrollY : window.scrollY;
+        state.scrollBias = anchor ? anchor.scrollAt - saved.scrollY : 0;
+        state.scrollAnchor = null;
+        const sectionIndex = state.mode === "intro" ? -1 : state.sectionIndex;
+        const barIndex = state.mode === "intro" ? state.current : state.sectionBarIndex;
+        state.autoIndex = Math.max(0, route.findIndex(stop => stop.sectionIndex === sectionIndex && stop.barIndex === barIndex));
+        state.autoDesired = state.autoIndex;
+        state.autoLeap = null;
+        if (state.mode === "intro") {
+          const box = canvas.getBoundingClientRect();
+          state.scrollPosition = { x: box.left + state.bear.x + state.bear.w / 2,
+            y: box.top + window.scrollY + state.bear.y + state.bear.h };
+        } else if (state.travel) {
+          const box = scrollBear.getBoundingClientRect();
+          state.scrollPosition = { x: box.left + box.width / 2, y: box.bottom + window.scrollY };
+        } else state.scrollPosition = route[state.autoIndex].point;
+      }
+      state.scrollDriven = true;
+      state.travel = null;
+      state.leap = null;
+      syncScrollBear();
+    }
+    window.addEventListener("wheel", event => {
+      if (event.deltaY) followManualScroll();
+    }, { passive: true });
+    window.addEventListener("touchmove", followManualScroll, { passive: true });
+    window.addEventListener("keydown", event => {
+      if (event.target.closest("input, textarea, select, [contenteditable]")) return;
+      if (["ArrowDown", "PageDown", "PageUp", "Home", "End"].includes(event.code)) followManualScroll();
+    });
+    // Scrollbar dragging has no wheel or touch event.
+    window.addEventListener("pointerdown", event => {
+      if (event.clientX >= document.documentElement.clientWidth) followManualScroll();
+    });
+
+    sections.forEach((section, index) => {
+      section.querySelectorAll(".section-platform").forEach((bar, barIndex) => {
+        if (bar.classList.contains("folder-platform") || bar.classList.contains("team-stop")) return;
+        bar.addEventListener("click", () => {
+          if (state.travel || state.leap || state.autoLeap) return;
+          state.scrollDriven = false;
+          state.mode = "section";
+          state.sectionIndex = index;
+          state.sectionBarIndex = barIndex;
+          jump();
+        });
+      });
+    });
+
+    function closeFolderMessages() { folderMessages.close(); }
+
+    function onPlatformLanding(sectionIndex, barIndex) {
+      const platform = sections[sectionIndex]?.querySelectorAll(".section-platform")[barIndex];
+      folderMessages.land(platform);
+    }
+
+    // Sections without a landing (Contact) leave the bear at the preceding platform.
+    function landingSectionIndex(id) {
+      let index = sections.findIndex(section => section.id === id);
+      while (index >= 0 && !sections[index].querySelectorAll(".section-platform").length) index--;
+      return index;
+    }
+
+    document.querySelectorAll('.site-nav a[href^="#"]').forEach(link => {
+      link.addEventListener("click", () => {
+        state.travel = null;
+        state.leap = null;
+        state.autoLeap = null;
+        state.scrollDriven = false;
+        state.scrollAnchor = null;
+        const id = link.getAttribute("href").slice(1);
+        const sectionIndex = landingSectionIndex(id);
+        if (sectionIndex < 0) resetGame();
+        else {
+          state.mode = "section";
+          state.sectionIndex = sectionIndex;
+          state.sectionBarIndex = 0;
+        }
+        syncScrollBear();
+      });
+    });
+
+    drawFolders();
+    resizeCanvas();
+    resetGame();
+    const initialSection = landingSectionIndex(window.location.hash.slice(1));
+    if (initialSection >= 0) {
+      state.mode = "section";
+      state.sectionIndex = initialSection;
+      state.sectionBarIndex = 0;
+    }
+    const skyObserver = new ResizeObserver(drawSkies);
+    skyObserver.observe(document.getElementById("top"));
+    skyObserver.observe(document.getElementById("events"));
+    skyObserver.observe(document.querySelector("main"));
+    syncScrollBear();
+    requestAnimationFrame(frame);
+  </script>
+</body>
+</html>

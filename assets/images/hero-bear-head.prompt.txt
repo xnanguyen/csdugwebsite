@@ -1,0 +1,5 @@
+Tool: built-in ImageGen
+Source: user-supplied brown bear.png
+Output: hero-bear-head.png
+
+Use case: background-extraction. Edit target: the provided brown bear head artwork. Extract ONLY the existing bear head as a clean transparent-background cutout for placement in a website heading. Remove all of the large white canvas and the lavender rectangle behind the head. Preserve the exact bear design, irregular ear and face silhouette, warm brown fuzzy/grainy texture, tan inner ears and muzzle, black eyes, nose and crooked smile. Do not redesign, stylize, add outlines, add a body, add a shadow, or add text. Frame the head tightly with a tiny transparent margin; keep its original width-to-height proportion. Output genuine alpha transparency outside the head, not a checkerboard.

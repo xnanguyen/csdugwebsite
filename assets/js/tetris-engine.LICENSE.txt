@@ -1,0 +1,21 @@
+tetris-engine 1.2.18
+https://github.com/petelinmn/tetris-engine
+Copyright (c) petelinmn
+License declared by the upstream npm package: ISC
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+Vendored from https://registry.npmjs.org/tetris-engine/-/tetris-engine-1.2.18.tgz
+SHA-1: 2e1479e7150690fedd646113117518a84c75c319
+The three upstream CommonJS modules are unchanged apart from line endings
+and wrapped in a local browser bundle by scripts/vendor-tetris.mjs.
