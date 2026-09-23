@@ -1337,7 +1337,7 @@
     </defs>
   </svg>
   <nav class="site-nav" aria-label="Primary navigation">
-    <a class="brand" href="#top" aria-label="Brown CS DUG home">
+    <a class="brand" href="index.html" aria-label="Brown CS DUG home" title="Back to home">
       <img src="assets/images/csdug-logo.svg" alt="CS DUG" width="617" height="437" fetchpriority="high">
     </a>
     <button class="nav-toggle" type="button" aria-label="Open navigation" title="Menu" aria-expanded="false" aria-controls="primary-links">
@@ -2520,25 +2520,37 @@
 
     function blendSkyBoundary(sky, atTop, boundary = [139, 78, 113], depthPx = atTop ? 160 : 100) {
       const paint = sky.getContext("2d");
-      const pixels = paint.getImageData(0, 0, sky.width, sky.height);
-      const depth = Math.min(sky.height, Math.ceil(depthPx * sky.height / sky.getBoundingClientRect().height));
+      const height = sky.getBoundingClientRect().height;
+      if (!sky.width || !sky.height || height <= 0) return;
+      const depth = Math.max(1, Math.min(sky.height, Math.ceil(depthPx * sky.height / height)));
+      const tint = document.createElement("canvas");
+      tint.width = sky.width;
+      tint.height = depth;
+      const tintPaint = tint.getContext("2d");
+      const pixels = tintPaint.createImageData(tint.width, tint.height);
       const dither = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
-      // Both skies meet at one color; quantized tint preserves their pixel texture.
+      // Composite a fresh tint instead of reading image pixels, which can be blocked on local files.
       for (let row = 0; row < depth; row++) {
         const y = atTop ? row : sky.height - 1 - row;
-        const progress = 1 - row / (depth - 1);
+        const progress = depth === 1 ? 1 : 1 - row / (depth - 1);
         const t = progress * progress * (3 - 2 * progress);
         for (let x = 0; x < sky.width; x++) {
           const value = t * 32;
           const mix = Math.min(32, Math.floor(value) +
             (value % 1 > (dither[y % 4][x % 4] + .5) / 16 ? 1 : 0)) / 32;
-          const offset = (y * sky.width + x) * 4;
+          const offset = ((atTop ? row : depth - 1 - row) * sky.width + x) * 4;
           for (let channel = 0; channel < 3; channel++) {
-            pixels.data[offset + channel] = Math.round(pixels.data[offset + channel] * (1 - mix) + boundary[channel] * mix);
+            pixels.data[offset + channel] = boundary[channel];
           }
+          pixels.data[offset + 3] = Math.round(mix * 255);
         }
       }
-      paint.putImageData(pixels, 0, 0);
+      tintPaint.putImageData(pixels, 0, 0);
+      paint.save();
+      paint.globalAlpha = 1;
+      paint.globalCompositeOperation = "source-over";
+      paint.drawImage(tint, 0, atTop ? 0 : sky.height - depth);
+      paint.restore();
     }
 
     const cityScene = { layer: document.getElementById("resourcesCity"), windows: [], lastDraw: -Infinity };
@@ -3335,6 +3347,12 @@
         return { x: rect.left + platform.x + state.barWidth / 2,
           y: rect.top + window.scrollY + platform.y };
       }
+      if (sections[sectionIndex].id === "contact") {
+        const footer = document.querySelector("footer").getBoundingClientRect();
+        // A virtual landing below the page keeps the final drop reversible without adding a bar.
+        return { x: footer.left + footer.width / 2,
+          y: footer.bottom + window.scrollY + 120 };
+      }
       const platform = sections[sectionIndex].querySelectorAll(".section-platform")[barIndex];
       const folder = platform.querySelector(".folder-icon");
       const rect = (folder || platform).getBoundingClientRect();
@@ -3366,9 +3384,12 @@
         scrollAt: heroHeight * barIndex * .16, point: landingPoint(-1, barIndex) }));
       sections.forEach((section, sectionIndex) => {
         const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-        section.querySelectorAll(".section-platform").forEach((_, barIndex) => {
+        const footerStop = section.id === "contact";
+        const platforms = footerStop ? [null] : section.querySelectorAll(".section-platform");
+        platforms.forEach((_, barIndex) => {
           const point = landingPoint(sectionIndex, barIndex);
-          const preferred = barIndex === 0 ? sectionTop - window.innerHeight * .35 :
+          const preferred = footerStop ? maxScroll - Math.min(160, window.innerHeight * .18) :
+            barIndex === 0 ? sectionTop - window.innerHeight * .35 :
             point.y - window.innerHeight * .64;
           const scrollAt = Math.min(maxScroll, Math.max(route[route.length - 1].scrollAt + 120, preferred));
           route.push({ sectionIndex, barIndex, scrollAt, point });
@@ -3433,6 +3454,9 @@
     }
 
     function destinationScroll(sectionIndex, barIndex) {
+      if (sections[sectionIndex]?.id === "contact") {
+        return document.documentElement.scrollHeight - window.innerHeight;
+      }
       const destination = sectionIndex < 0 ? document.getElementById("top") : sections[sectionIndex];
       const sectionTop = destination.getBoundingClientRect().top + window.scrollY;
       const anchorTop = sectionTop - parseFloat(getComputedStyle(destination).scrollMarginTop || 0);
@@ -3442,7 +3466,8 @@
 
     function startSectionJump(nextSection, targetBar = 0) {
       if (state.travel || state.leap) return;
-      if (!sections[nextSection]?.querySelectorAll(".section-platform")[targetBar]) return;
+      if (!sections[nextSection]?.querySelectorAll(".section-platform")[targetBar] &&
+          !(sections[nextSection]?.id === "contact" && targetBar === 0)) return;
       const targetIndex = nextSection;
       let from;
       if (state.mode === "scroll") {
@@ -3493,7 +3518,7 @@
         state.sectionIndex = travel.targetIndex;
         state.sectionBarIndex = travel.targetBar;
         state.scrollAnchor = { sectionIndex: state.sectionIndex, barIndex: state.sectionBarIndex, scrollY: window.scrollY };
-        sections[state.sectionIndex].querySelectorAll(".section-platform")[state.sectionBarIndex].focus({ preventScroll: true });
+        sections[state.sectionIndex].querySelectorAll(".section-platform")[state.sectionBarIndex]?.focus({ preventScroll: true });
       }
       syncScrollBear();
     }
@@ -3594,10 +3619,11 @@
       folderMessages.land(platform);
     }
 
-    // Sections without a landing (Contact) leave the bear at the preceding platform.
+    // Contact uses the virtual landing below the footer rather than a visible platform.
     function landingSectionIndex(id) {
       let index = sections.findIndex(section => section.id === id);
-      while (index >= 0 && !sections[index].querySelectorAll(".section-platform").length) index--;
+      while (index >= 0 && sections[index].id !== "contact" &&
+          !sections[index].querySelectorAll(".section-platform").length) index--;
       return index;
     }
 

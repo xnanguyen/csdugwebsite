@@ -37,7 +37,7 @@ assert(sections.about.indexOf('about-entry') < sections.about.indexOf('folder-pl
 assert.equal((sections.resources.match(/class="section-platform/g) || []).length, 2);
 assert(sections.resources.indexOf('resource-upper') < sections.resources.indexOf('resource-lower'));
 assert(!sections.contact.includes('section-platform'), 'footer has no landing or restart bar');
-assert.match(sections.team, /<span class="section-platform team-stop" aria-hidden="true"><\/span>/, 'Team is a non-interactive final landing');
+assert.match(sections.team, /<span class="section-platform team-stop" aria-hidden="true"><\/span>/, 'Team is the last visible platform');
 assert.match(html, /#team \.team-stop \{ margin-top: 32px;/, 'Team landing is lower');
 
 const routeSections = ['events', 'about', 'resources', 'team', 'contact'].map((id, index) => ({
@@ -54,18 +54,24 @@ const endpoint = vm.createContext({
   scrollBear: { classList: { remove() {} } }, positionFollower() {}
 });
 vm.runInContext(extract('function landingSectionIndex(', 'document.querySelectorAll(\'.site-nav'), endpoint);
-assert.equal(vm.runInContext('landingSectionIndex("contact")', endpoint), 3, 'Contact navigation and deep links retain the Team landing');
+assert.equal(vm.runInContext('landingSectionIndex("contact")', endpoint), 4, 'Contact navigation and deep links use the virtual footer landing');
 assert.equal(vm.runInContext('landingSectionIndex("top")', endpoint), -1);
 vm.runInContext(extract('function scrollRoute()', 'function updateScrollProgress()'), endpoint);
 const route = vm.runInContext('scrollRoute()', endpoint);
-assert.equal(route.at(-1).sectionIndex, 3, 'scrolling ends at Team');
+assert.equal(route.at(-2).sectionIndex, 3, 'Team is the last visible platform');
+assert.equal(route.at(-1).sectionIndex, 4, 'scrolling ends below the footer');
+assert(route.at(-1).scrollAt > route.at(-2).scrollAt, 'footer has a separate scroll trigger');
+assert(route.at(-1).scrollAt <= 6200 - 720, 'the final jump is reachable before the scroll limit');
 vm.runInContext(extract('function startAutoJump(', 'function updateAutoJump('), endpoint);
+vm.runInContext('startAutoJump();', endpoint);
+assert.equal(endpointState.scrollTarget.sectionIndex, 4, 'Team can jump down below the footer');
+endpointState.autoIndex = endpointState.autoDesired = route.length - 1;
 vm.runInContext('startAutoJump();', endpoint);
 assert.equal(endpointState.scrollTarget, null, 'the last landing has no next destination');
 vm.runInContext(extract('function jump()', 'function update(delta)'), endpoint);
 vm.runInContext('jump();', endpoint);
 assert.equal(endpointState.scrollDriven, true, 'Space at the route end leaves the standing bear alone');
 vm.runInContext(extract('function startSectionJump(', 'function updateTravel('), endpoint);
-vm.runInContext('startSectionJump(4); startSectionJump(5);', endpoint);
-assert.equal(endpointState.mode, 'scroll', 'missing footer landings cannot start travel or reset the game');
-console.log('ok route order: Events -> lower About entry -> folders -> Resources left -> right -> Team');
+vm.runInContext('startSectionJump(4, 1); startSectionJump(5);', endpoint);
+assert.equal(endpointState.mode, 'scroll', 'invalid destinations cannot start travel or reset the game');
+console.log('ok route order: Events -> lower About entry -> folders -> Resources left -> right -> Team -> below footer');

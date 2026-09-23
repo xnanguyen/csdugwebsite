@@ -24,6 +24,8 @@ events.pointerdown({ target: {} }); assert(!open);
 events['button:click'](); events.change(); assert(!open);
 assert.equal(attrs.get('aria-label'), 'Open navigation');
 const html = readFileSync('index.html', 'utf8');
+assert.match(html, /<a class="brand" href="index\.html" aria-label="Brown CS DUG home" title="Back to home">/,
+  'logo opens the home page relative to the deployment directory, including GitHub project sites');
 const start = html.indexOf('window.addEventListener("keydown"');
 let keydown, jumps = 0;
 vm.runInNewContext(html.slice(start, html.indexOf('canvas.addEventListener("pointerdown"', start)), {
@@ -32,4 +34,4 @@ vm.runInNewContext(html.slice(start, html.indexOf('canvas.addEventListener("poin
 });
 keydown({ code: 'Space', target: { closest: selector => selector === '.site-nav' ? {} : null } });
 assert.equal(jumps, 0, 'Space on the mobile menu does not trigger a game jump');
-console.log('ok mobile menu toggle, Escape focus, link selection, outside click, and resize');
+console.log('ok home logo link, mobile menu toggle, Escape focus, link selection, outside click, and resize');

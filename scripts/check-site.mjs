@@ -60,7 +60,7 @@ if (manifest.start_url !== './' || manifest.scope !== './') {
 }
 for (const link of new Set(localLinks)) {
   try {
-    if (!link.startsWith('assets/') && !['site.webmanifest'].includes(link)) throw new Error('unexpected local link');
+    if (!link.startsWith('assets/') && !['index.html', 'site.webmanifest'].includes(link)) throw new Error('unexpected local link');
     let parent = '.';
     for (const part of link.split('/')) {
       if (!(await readdir(parent)).includes(part)) throw new Error('missing or wrong filename case');
